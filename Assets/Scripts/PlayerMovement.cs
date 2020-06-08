@@ -10,8 +10,15 @@ public class PlayerMovement : MonoBehaviour
     private float _gravity = -9.81f;
     [SerializeField]
     private float _jumpHeight = 2f;
+    [SerializeField]
+    private float _smoothTime = 0.18f;
+    [SerializeField]
+    private float _airFriction = 0.15f;
 
+    private Vector3 _velocity;
+    private Vector3 _refVelocityLand;
     private float _jumpVelocity;
+
     private CharacterController _cc;
     private PlayerInputClass _pi;
 
@@ -42,6 +49,8 @@ public class PlayerMovement : MonoBehaviour
     {
         float x = movementInput.x;
         float z = movementInput.y;
+        Vector3 dir = new Vector3(x, 0f, z);
+        _velocity.y = 0;
         if (_cc.isGrounded)
         {
             _jumpVelocity = _gravity;
@@ -49,16 +58,28 @@ public class PlayerMovement : MonoBehaviour
             {
                 jump();
             }
+            if (dir.sqrMagnitude == 0)
+            {
+                _velocity = Vector3.SmoothDamp(_velocity, Vector3.zero, ref _refVelocityLand, _smoothTime);
+            }
+            else
+            {
+                _velocity = dir * _speed;
+                _velocity = transform.TransformDirection(_velocity);
+            }
         }
         else
         {
             _jumpVelocity += _gravity * Time.deltaTime;
+            if (dir.sqrMagnitude != 0)
+            {
+                _velocity = dir * _velocity.magnitude;
+                _velocity = transform.TransformDirection(_velocity);
+            }
+            _velocity -= (_velocity * _airFriction)*Time.deltaTime;
         }
-        Vector3 dir = new Vector3(x, 0f, z);
-        Vector3 velocity = dir * _speed;
-        velocity = transform.TransformDirection(velocity);
-        velocity.y = _jumpVelocity;
-        _cc.Move(velocity * Time.deltaTime);
+        _velocity.y = _jumpVelocity;
+        _cc.Move(_velocity * Time.deltaTime);
     }
 
     private void OnEnable()
