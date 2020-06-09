@@ -23,7 +23,7 @@
                 },
                 {
                     "name": "Fire",
-                    "type": "PassThrough",
+                    "type": "Button",
                     "id": "a807fe48-db22-4dcf-bdd6-c05a9c2a2ffc",
                     "expectedControlType": "Button",
                     "processors": "",
@@ -31,7 +31,7 @@
                 },
                 {
                     "name": "Aim",
-                    "type": "PassThrough",
+                    "type": "Button",
                     "id": "719b2abe-7c9b-4a86-b3c0-febf0058acf0",
                     "expectedControlType": "Button",
                     "processors": "",
@@ -42,6 +42,22 @@
                     "type": "Button",
                     "id": "6bc34013-6d30-4fe1-90ee-0f157a2578f8",
                     "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": ""
+                },
+                {
+                    "name": "Reload",
+                    "type": "Button",
+                    "id": "87f67473-a21e-41d2-aceb-a38e09bca179",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": ""
+                },
+                {
+                    "name": "SwitchWeapon",
+                    "type": "Value",
+                    "id": "17bf5e08-b05d-40fa-90ae-1a4df9bbb0b2",
+                    "expectedControlType": "Vector2",
                     "processors": "",
                     "interactions": ""
                 }
@@ -143,6 +159,28 @@
                     "processors": "",
                     "groups": "Keyboard&Mouse",
                     "action": "Look",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "bd9eb82b-54f5-4699-a28e-e3458ec8ffd0",
+                    "path": "<Keyboard>/r",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Keyboard&Mouse",
+                    "action": "Reload",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "a7d6cfaa-cbea-4d05-b12f-ca708a5f2986",
+                    "path": "<Mouse>/scroll",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Keyboard&Mouse",
+                    "action": "SwitchWeapon",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }
