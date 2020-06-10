@@ -6,9 +6,12 @@ public class WeaponManager : MonoBehaviour
 {
     [SerializeField]
     private int selectedWeapon = 0;
+    private Player _player;
+    private int _weaponCount = 0;
 
     private void Awake()
     {
+        _player = FindObjectOfType<Player>();
         SelectWeapon();
     }
 
@@ -39,26 +42,30 @@ public class WeaponManager : MonoBehaviour
             }
         }
 
-        if (Keyboard.current.digit1Key.wasPressedThisFrame)
+        if (_weaponCount > 0)
         {
-            selectedWeapon = 0;
-        }
-        if (Keyboard.current.digit2Key.wasPressedThisFrame && transform.childCount >= 2)
-        {
-            selectedWeapon = 1;
-        }
-        if (Keyboard.current.digit3Key.wasPressedThisFrame && transform.childCount >= 3)
-        {
-            selectedWeapon = 2;
-        }
-        if (Keyboard.current.digit4Key.wasPressedThisFrame && transform.childCount >= 4)
-        {
-            selectedWeapon = 3;
+            if (Keyboard.current.digit1Key.wasPressedThisFrame)
+            {
+                selectedWeapon = 0;
+            }
+            if (Keyboard.current.digit2Key.wasPressedThisFrame && _weaponCount >= 2)
+            {
+                selectedWeapon = 1;
+            }
+            if (Keyboard.current.digit3Key.wasPressedThisFrame && _weaponCount >= 3)
+            {
+                selectedWeapon = 2;
+            }
+            if (Keyboard.current.digit4Key.wasPressedThisFrame && _weaponCount >= 4)
+            {
+                selectedWeapon = 3;
+            }
         }
 
         if (preWeapon != selectedWeapon)
         {
             SelectWeapon();
+            _player.switchWeapon();
         }
     }
 
@@ -76,6 +83,21 @@ public class WeaponManager : MonoBehaviour
                 weapon.gameObject.SetActive(false);
             }
             i++;
+        }
+    }
+
+    public void addWeapon()
+    {
+        _weaponCount++;
+        SelectWeapon();
+    }
+
+    public void removeWeapon()
+    {
+        _weaponCount--;
+        if (_weaponCount > 0)
+        {
+            SelectWeapon();
         }
     }
 }

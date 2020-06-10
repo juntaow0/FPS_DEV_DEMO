@@ -5,15 +5,9 @@ using UnityEngine;
 public class Weapon : MonoBehaviour
 {
     [SerializeField]
-    private int _damage = 100;
-    [SerializeField]
     private float _reloadTime = 2f;
     [SerializeField]
-    private float _fireRate = 5f;
-    [SerializeField]
-    private int _magSize = 5;
-    [SerializeField]
-    private int _reserveAmmo = 30;
+    private int _damage = 100;
     [SerializeField]
     private float _effectiveRange = 1000f;
     [SerializeField]
@@ -21,52 +15,27 @@ public class Weapon : MonoBehaviour
     [SerializeField]
     private GameObject _impactEffect;
 
-    private int _currentAmmo;
-    private bool _isReloading = false;
-    private float nextTimeToFire = 0f;
+    public float _fireRate = 5f;
+    public int _magSize = 5;
+    public int _reserveAmmo = 30;
+    public int _currentAmmo;
+    public bool _isReloading = false;
+    public int _reserveAmmoCapacity = 30;
+
     private Vector3 _center;
-    private PlayerInputClass _pi;
 
     private void Awake()
     {
-        _pi = new PlayerInputClass();
         _currentAmmo = _magSize;
         _center = new Vector3(0.5f, 0.5f, 0);
     }
 
-    private void OnEnable()
+    public void reload(bool empty)
     {
-        _isReloading = false;
-        //animator.SetBool("reloading", false);
-        _pi.Player.Fire.Enable();
-        _pi.Player.Reload.Enable();
+        StartCoroutine(ReloadRoutine(empty));
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        if (_isReloading)
-        {
-            return;
-        }
-        if (_currentAmmo <= 0 && _reserveAmmo > 0)
-        {
-            StartCoroutine(ReloadRoutine(true));
-            return;
-        }
-        if (_pi.Player.Reload.triggered && _currentAmmo < _magSize && _reserveAmmo>0)
-        {
-            StartCoroutine(ReloadRoutine(false));
-            return;
-        }
-        if (_pi.Player.Fire.triggered && Time.time >= nextTimeToFire && _currentAmmo>0)
-        {
-            nextTimeToFire = Time.time + 1f / _fireRate;
-            Shoot();
-        }
-    }
-
-    void Shoot()
+    public void Shoot()
     {
         _muzzleFlash.Play();
         _currentAmmo--;
@@ -135,9 +104,22 @@ public class Weapon : MonoBehaviour
         _isReloading = false;
     }
 
-    private void OnDisable()
+    private void OnEnable()
     {
-        _pi.Player.Fire.Disable();
-        _pi.Player.Reload.Disable();
+        _isReloading = false;
+        //animator.SetBool("reloading", false);
+    }
+
+    public void getAmmo()
+    {
+        if (_reserveAmmo == 0)
+        {
+            _reserveAmmo = _reserveAmmoCapacity;
+        }
+        else
+        {
+            _reserveAmmo = _reserveAmmoCapacity - _magSize;
+        }
+        
     }
 }
