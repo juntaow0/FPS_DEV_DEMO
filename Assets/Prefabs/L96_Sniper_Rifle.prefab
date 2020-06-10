@@ -100,6 +100,7 @@ MonoBehaviour:
   _effectiveRange: 1000
   _muzzleFlash: {fileID: 610504329045925969}
   _impactEffect: {fileID: 100002, guid: 56bfc2f4b4a0c534c8ef3d0fd1124c44, type: 3}
+  isAutomatic: 0
   _fireRate: 0.68
   _magSize: 5
   _reserveAmmo: 30

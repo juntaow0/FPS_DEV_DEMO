@@ -17,7 +17,6 @@ public class Weapon : MonoBehaviour
 
     public bool isAutomatic = false;
 
-
     public float _fireRate = 5f;
     public int _magSize = 5;
     public int _reserveAmmo = 30;
@@ -26,6 +25,8 @@ public class Weapon : MonoBehaviour
     public int _reserveAmmoCapacity = 30;
 
     private Vector3 _center;
+    [SerializeField]
+    private Animator animator;
 
     private void Awake()
     {
@@ -72,9 +73,13 @@ public class Weapon : MonoBehaviour
     IEnumerator ReloadRoutine(bool empty)
     {
         _isReloading = true;
-        //animator.SetBool("reloading", true);
+
+        animator.SetBool("isReloading", true);
+
         yield return new WaitForSeconds(_reloadTime - 0.25f);
-        //animator.SetBool("reloading", false);
+
+        animator.SetBool("isReloading", false);
+
         yield return new WaitForSeconds(0.25f);
         if (empty)
         {
@@ -109,8 +114,13 @@ public class Weapon : MonoBehaviour
 
     private void OnEnable()
     {
+        Debug.Log("weapon spawn");
         _isReloading = false;
-        //animator.SetBool("reloading", false);
+        if (transform.parent != null)
+        {
+            animator.SetBool("isReloading", false);
+        }
+        
     }
 
     public void getAmmo()
@@ -123,6 +133,10 @@ public class Weapon : MonoBehaviour
         {
             _reserveAmmo = _reserveAmmoCapacity - _magSize;
         }
-        
+    }
+
+    public void assignAnimator()
+    {
+        animator = GetComponentInParent<Animator>();
     }
 }

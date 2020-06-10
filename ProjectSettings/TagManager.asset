@@ -7,6 +7,7 @@ TagManager:
   - Enemy
   - Destructible
   - Weapon
+  - AmmoBox
   layers:
   - Default
   - TransparentFX

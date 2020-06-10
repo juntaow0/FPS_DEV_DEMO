@@ -118,6 +118,7 @@ public class Player : MonoBehaviour
         adjustTransform();
         hasWeapon = true;
         _wm.addWeapon();
+        _currentWeapon.assignAnimator();
     }
 
 
