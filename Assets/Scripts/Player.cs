@@ -59,12 +59,23 @@ public class Player : MonoBehaviour
                 _currentWeapon.reload(false);
                 return;
             }
-            if (_pi.Player.Fire.triggered && Time.time >= nextTimeToFire && _currentWeapon._currentAmmo > 0)
+            if (_currentWeapon.isAutomatic)
             {
-                nextTimeToFire = Time.time + 1f / _currentWeapon._fireRate;
-                _currentWeapon.Shoot();
+                if (Mouse.current.leftButton.isPressed && Time.time >= nextTimeToFire && _currentWeapon._currentAmmo > 0)
+                {
+                    nextTimeToFire = Time.time + 1f / _currentWeapon._fireRate;
+                    _currentWeapon.Shoot();
+                }
             }
-        }
+            else
+            {
+                if (_pi.Player.Fire.triggered && Time.time >= nextTimeToFire && _currentWeapon._currentAmmo > 0)
+                {
+                    nextTimeToFire = Time.time + 1f / _currentWeapon._fireRate;
+                    _currentWeapon.Shoot();
+                }
+            }
+        }      
     }
 
     void dropWeapon()

@@ -15,6 +15,9 @@ public class Weapon : MonoBehaviour
     [SerializeField]
     private GameObject _impactEffect;
 
+    public bool isAutomatic = false;
+
+
     public float _fireRate = 5f;
     public int _magSize = 5;
     public int _reserveAmmo = 30;
