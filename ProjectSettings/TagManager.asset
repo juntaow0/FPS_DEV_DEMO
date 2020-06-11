@@ -8,6 +8,7 @@ TagManager:
   - Destructible
   - Weapon
   - AmmoBox
+  - Scope
   layers:
   - Default
   - TransparentFX

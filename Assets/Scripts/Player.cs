@@ -47,6 +47,7 @@ public class Player : MonoBehaviour
         {
             if (Keyboard.current.gKey.wasPressedThisFrame)
             {
+                _currentWeapon.stopSecondaryFunction();
                 _wm.dropWeapon(_currentWeapon.transform);
                 return;
             }
@@ -56,11 +57,13 @@ public class Player : MonoBehaviour
             }
             if (_currentWeapon._currentAmmo <= 0 && _currentWeapon._reserveAmmo > 0)
             {
+                _currentWeapon.stopSecondaryFunction();
                 _currentWeapon.reload(true);
                 return;
             }
             if (_pi.Player.Reload.triggered && _currentWeapon._currentAmmo < _currentWeapon._magSize && _currentWeapon._reserveAmmo > 0)
             {
+                _currentWeapon.stopSecondaryFunction();
                 _currentWeapon.reload(false);
                 return;
             }
@@ -80,11 +83,19 @@ public class Player : MonoBehaviour
                     _currentWeapon.Shoot();
                 }
             }
+            if (Mouse.current.rightButton.wasPressedThisFrame)
+            {
+                _currentWeapon.secondayFunction();
+            }
         }      
     }
 
     public void updateWeapon(Transform weapon)
     {
+        if (_currentWeapon != null)
+        {
+            _currentWeapon.stopSecondaryFunction();
+        }
         _currentWeapon = weapon.GetComponent<Weapon>();
         hasWeapon = true;
         nextTimeToFire = 0;
@@ -93,6 +104,7 @@ public class Player : MonoBehaviour
     public void OnDropAllWweapon()
     {
         hasWeapon = false;
+        _currentWeapon = null;
     }
 
     private void OnEnable()

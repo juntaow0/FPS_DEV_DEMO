@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: 3445616458405155637}
   - component: {fileID: -2194536602465341022}
   - component: {fileID: -1686011710471689813}
+  - component: {fileID: 6466194689630865657}
   m_Layer: 0
   m_Name: L96_Sniper_Rifle
   m_TagString: Weapon
@@ -95,6 +96,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ebdbd6ca4269f7a4dbaf934c24d449ea, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  type: 1
   _reloadTime: 3
   _damage: 100
   _effectiveRange: 1000
@@ -107,6 +109,7 @@ MonoBehaviour:
   _currentAmmo: 0
   _isReloading: 0
   _reserveAmmoCapacity: 35
+  animator: {fileID: 0}
 --- !u!65 &-2194536602465341022
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -136,6 +139,19 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
+--- !u!114 &6466194689630865657
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3445616457345092014}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a6fb8ea738afc3e4aa87272277f03962, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  scopedFOV: 15
 --- !u!1001 &8490083048738011252
 PrefabInstance:
   m_ObjectHideFlags: 0

@@ -2,9 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class AimDownSight : MonoBehaviour
+public class WeaponSecondary : MonoBehaviour
 {
-    private Animator animator;
     // Start is called before the first frame update
     void Start()
     {
@@ -15,15 +14,5 @@ public class AimDownSight : MonoBehaviour
     void Update()
     {
         
-    }
-
-    public void assignAnimator(Animator _animator)
-    {
-        animator = _animator;
-    }
-
-    public bool isUsing()
-    {
-        return false;
     }
 }

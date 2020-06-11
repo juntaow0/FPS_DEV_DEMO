@@ -5,6 +5,8 @@ using UnityEngine;
 public class Weapon : MonoBehaviour
 {
     [SerializeField]
+    private int type = 0; //0=ads, 1=scope
+    [SerializeField]
     private float _reloadTime = 2f;
     [SerializeField]
     private int _damage = 100;
@@ -14,6 +16,9 @@ public class Weapon : MonoBehaviour
     private ParticleSystem _muzzleFlash;
     [SerializeField]
     private GameObject _impactEffect;
+
+    private ScopeIn _si;
+    private AimDownSight _ads;
 
     public bool isAutomatic = false;
 
@@ -70,6 +75,21 @@ public class Weapon : MonoBehaviour
         }
     }
 
+    public void stopSecondaryFunction()
+    {
+        if (type == 0)
+        {
+
+        }
+        else
+        {
+            if (_si.isUsing())
+            {
+                _si.resetFunction();
+            }
+        }
+    }
+
     IEnumerator ReloadRoutine(bool empty)
     {
         _isReloading = true;
@@ -78,6 +98,8 @@ public class Weapon : MonoBehaviour
 
         yield return new WaitForSeconds(_reloadTime - 0.25f);
 
+        animator.SetBool("isScoped", false);
+        animator.SetBool("isAds", false);
         animator.SetBool("isReloading", false);
 
         yield return new WaitForSeconds(0.25f);
@@ -137,5 +159,27 @@ public class Weapon : MonoBehaviour
     public void assignAnimator(Animator _animator)
     {
         animator = _animator;
+        if (type == 0)
+        {
+            _ads = GetComponent<AimDownSight>();
+            _ads.assignAnimator(_animator);
+        }
+        else
+        {
+            _si = GetComponent<ScopeIn>();
+            _si.assignAnimator(_animator);
+        }
+    }
+
+    public void secondayFunction()
+    {
+        if (type == 0)
+        {
+            Debug.Log("AimDownSight");
+        }
+        else
+        {
+            _si.useFunction();
+        }
     }
 }

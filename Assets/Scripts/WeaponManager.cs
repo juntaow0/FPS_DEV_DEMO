@@ -83,6 +83,10 @@ public class WeaponManager : MonoBehaviour
             }
             i++;
         }
+        _animator.SetTrigger("onSwitch");
+        _animator.SetBool("isReloading", false);
+        _animator.SetBool("isScoped", false);
+        _animator.SetBool("isAds", false);
     }
 
     void adjustTransform(Transform weapon)
@@ -102,7 +106,12 @@ public class WeaponManager : MonoBehaviour
         weapon.parent = transform;
         weapon.gameObject.SetActive(false);
         weapon.gameObject.layer = LayerMask.NameToLayer("WeaponView");
-        weapon.GetChild(0).gameObject.layer = LayerMask.NameToLayer("WeaponView");
+        GameObject muzzle = weapon.GetChild(0).gameObject;
+        muzzle.layer = LayerMask.NameToLayer("WeaponView");
+        foreach (Transform effect in muzzle.transform)
+        {
+            effect.gameObject.layer = LayerMask.NameToLayer("WeaponView");
+        }
         weapon.GetComponent<Rigidbody>().isKinematic = true;
         weapon.GetComponent<BoxCollider>().isTrigger = true;
         adjustTransform(weapon);
@@ -113,9 +122,17 @@ public class WeaponManager : MonoBehaviour
 
     public void dropWeapon(Transform weapon)
     {
+        _animator.SetBool("isReloading", false);
+        _animator.SetBool("isScoped", false);
+        _animator.SetBool("isAds", false);
         weapon.gameObject.SetActive(false);
         weapon.gameObject.layer = 0;
-        weapon.GetChild(0).gameObject.layer = 0;
+        GameObject muzzle = weapon.GetChild(0).gameObject;
+        muzzle.layer = 0;
+        foreach (Transform effect in muzzle.transform)
+        {
+            effect.gameObject.layer = 0;
+        }
         resetTransform(weapon);
         weapon.transform.parent = null;
         weapon.gameObject.SetActive(true);
