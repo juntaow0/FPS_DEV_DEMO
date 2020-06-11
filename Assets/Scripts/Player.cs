@@ -16,7 +16,6 @@ public class Player : MonoBehaviour
     {
         _pi = new PlayerInputClass();
         _wm = FindObjectOfType<WeaponManager>();
-        _currentWeapon = _wm.GetComponentInChildren<Weapon>(false);
         _center = new Vector3(0.5f, 0.5f, 0);
     }
 
@@ -31,18 +30,24 @@ public class Player : MonoBehaviour
             {
                 if (hit.transform.tag == "Weapon")
                 {
-                    pickUpWeapon(hit);
+                    // add disabled weapon to weapon manager
+                    _wm.pickUpWeapon(hit.transform);
                 }else if (hit.transform.tag == "AmmoBox")
                 {
-                    _currentWeapon.getAmmo();
+                    if (_currentWeapon != null)
+                    {
+                        _currentWeapon.getAmmo();
+                    }
                 }
             }
         }
+
+        // use weapon
         if (hasWeapon)
         {
             if (Keyboard.current.gKey.wasPressedThisFrame)
             {
-                dropWeapon();
+                _wm.dropWeapon(_currentWeapon.transform);
                 return;
             }
             if (_currentWeapon._isReloading)
@@ -78,60 +83,16 @@ public class Player : MonoBehaviour
         }      
     }
 
-    void dropWeapon()
+    public void updateWeapon(Transform weapon)
     {
-        Debug.Log("drop a weapon");
-        _currentWeapon.gameObject.SetActive(false);
-        _currentWeapon.gameObject.layer = 0;
-        _currentWeapon.transform.GetChild(0).gameObject.layer = 0;
-        _currentWeapon.transform.localPosition = new Vector3(-0.483f, 0.129f, 0.115f);
-        _currentWeapon.transform.localRotation = Quaternion.identity;
-        _currentWeapon.gameObject.SetActive(true);
-        Rigidbody wrb = _currentWeapon.GetComponent<Rigidbody>();
-        BoxCollider wbc = _currentWeapon.GetComponent<BoxCollider>();
-        _currentWeapon.transform.parent = null;
-        wrb.isKinematic = false;
-        wbc.isTrigger = false;
-        wrb.AddForce(transform.forward*6,ForceMode.VelocityChange);
-        _wm.removeWeapon();
-        if (_wm.transform.childCount < 1)
-        {
-            hasWeapon = false;
-        }
-        else
-        {
-            _currentWeapon = _wm.GetComponentInChildren<Weapon>(false);
-        }
-    }
-
-    void pickUpWeapon(RaycastHit hit)
-    {
-        
-        hit.transform.parent = _wm.transform;
-        _currentWeapon = hit.transform.GetComponent<Weapon>();
-        _currentWeapon.gameObject.layer = LayerMask.NameToLayer("WeaponView");
-        _currentWeapon.transform.GetChild(0).gameObject.layer = LayerMask.NameToLayer("WeaponView");
-        Rigidbody wrb = _currentWeapon.GetComponent<Rigidbody>();
-        BoxCollider wbc = _currentWeapon.GetComponent<BoxCollider>();
-        wrb.isKinematic = true;
-        wbc.isTrigger = true;
-        adjustTransform();
+        _currentWeapon = weapon.GetComponent<Weapon>();
         hasWeapon = true;
-        _wm.addWeapon();
-        _currentWeapon.assignAnimator();
-    }
-
-
-    void adjustTransform()
-    {
-        _currentWeapon.transform.localPosition = Vector3.zero;
-        _currentWeapon.transform.localRotation = Quaternion.Euler(0, 90, 0);
-    }
-
-    public void switchWeapon()
-    {
-        _currentWeapon = _wm.GetComponentInChildren<Weapon>(false);
         nextTimeToFire = 0;
+    }
+
+    public void OnDropAllWweapon()
+    {
+        hasWeapon = false;
     }
 
     private void OnEnable()

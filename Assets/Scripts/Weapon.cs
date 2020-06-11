@@ -114,7 +114,6 @@ public class Weapon : MonoBehaviour
 
     private void OnEnable()
     {
-        Debug.Log("weapon spawn");
         _isReloading = false;
         if (transform.parent != null)
         {
@@ -135,8 +134,8 @@ public class Weapon : MonoBehaviour
         }
     }
 
-    public void assignAnimator()
+    public void assignAnimator(Animator _animator)
     {
-        animator = GetComponentInParent<Animator>();
+        animator = _animator;
     }
 }
