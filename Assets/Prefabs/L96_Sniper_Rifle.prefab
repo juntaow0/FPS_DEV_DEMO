@@ -96,6 +96,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ebdbd6ca4269f7a4dbaf934c24d449ea, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  weaponName: AWP
   type: 1
   _reloadTime: 3
   _damage: 100

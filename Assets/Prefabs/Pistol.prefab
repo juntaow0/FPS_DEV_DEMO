@@ -96,6 +96,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ebdbd6ca4269f7a4dbaf934c24d449ea, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  weaponName: Glock
   type: 0
   _reloadTime: 2
   _damage: 18
@@ -151,6 +152,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 575a8d3e6a0877142b03ae05c784fd6c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  adsFOV: 15
 --- !u!1001 &1291427235305861590
 PrefabInstance:
   m_ObjectHideFlags: 0

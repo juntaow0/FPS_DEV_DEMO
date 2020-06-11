@@ -116,8 +116,12 @@ public class WeaponManager : MonoBehaviour
         weapon.GetComponent<BoxCollider>().isTrigger = true;
         adjustTransform(weapon);
         weapon.GetComponent<Weapon>().assignAnimator(_animator);
+        
+        if (_weaponCount < 1)
+        {
+            SelectWeapon();
+        }
         _weaponCount++;
-        SelectWeapon();
     }
 
     public void dropWeapon(Transform weapon)

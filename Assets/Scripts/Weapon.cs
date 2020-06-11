@@ -5,6 +5,8 @@ using UnityEngine;
 public class Weapon : MonoBehaviour
 {
     [SerializeField]
+    private string weaponName = "M4A1";
+    [SerializeField]
     private int type = 0; //0=ads, 1=scope
     [SerializeField]
     private float _reloadTime = 2f;
@@ -79,7 +81,10 @@ public class Weapon : MonoBehaviour
     {
         if (type == 0)
         {
-
+            if (_ads.isUsing())
+            {
+                _ads.resetFunction();
+            } 
         }
         else
         {
@@ -140,8 +145,7 @@ public class Weapon : MonoBehaviour
         if (transform.parent != null)
         {
             animator.SetBool("isReloading", false);
-        }
-        
+        } 
     }
 
     public void getAmmo()
@@ -175,7 +179,7 @@ public class Weapon : MonoBehaviour
     {
         if (type == 0)
         {
-            Debug.Log("AimDownSight");
+            _ads.useFunction(weaponName);
         }
         else
         {
