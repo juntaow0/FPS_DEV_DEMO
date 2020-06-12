@@ -9,6 +9,7 @@ TagManager:
   - Weapon
   - AmmoBox
   - Scope
+  - Ground
   layers:
   - Default
   - TransparentFX

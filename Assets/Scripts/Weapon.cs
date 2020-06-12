@@ -18,11 +18,11 @@ public class Weapon : MonoBehaviour
     private ParticleSystem _muzzleFlash;
     [SerializeField]
     private ParticleSystem _shell;
-    [SerializeField]
-    private GameObject _impactEffect;
+    private HitMarkerManager _hmm;
 
     private ScopeIn _si;
     private AimDownSight _ads;
+    private float impForce = 300f;
 
     public bool isAutomatic = false;
 
@@ -42,6 +42,7 @@ public class Weapon : MonoBehaviour
     {
         _currentAmmo = _magSize;
         _center = new Vector3(0.5f, 0.5f, 0);
+        _hmm = FindObjectOfType<HitMarkerManager>();
     }
 
     public void reload(bool empty)
@@ -58,7 +59,6 @@ public class Weapon : MonoBehaviour
         Ray origin = Camera.main.ViewportPointToRay(_center);
         if (Physics.Raycast(origin, out hit, _effectiveRange))
         {
-            Debug.Log(hit.transform.name);
             if (hit.transform.tag == "Enemy")
             {
                 Enemy enemy = hit.transform.GetComponent<Enemy>();
@@ -71,14 +71,45 @@ public class Weapon : MonoBehaviour
             {
 
             }
-            GameObject impacteffect = Instantiate(_impactEffect, hit.point, Quaternion.LookRotation(hit.normal));
-            Destroy(impacteffect, 1f);
-
-            //if (hit.rigidbody != null)
-            //{
-            //    hit.rigidbody.AddForce(-hit.normal * impForce * Time.deltaTime);
-            //}
+            selectHitMarker(hit);
+            if (hit.rigidbody != null)
+            {
+                Vector3 dir = Camera.main.transform.forward;
+                hit.rigidbody.AddForce(dir * 300f*Time.deltaTime,ForceMode.Impulse);
+            }
         }
+    }
+
+    void selectHitMarker(RaycastHit hit)
+    {
+        string tag = hit.transform.tag;
+        int effectIndex;
+        switch (tag)
+        {
+            case "Enemy":
+                effectIndex = 0;
+                break;
+            case "Ground":
+                effectIndex = 1;
+                break;
+            case "Concrete":
+                effectIndex = 2;
+                break;
+            case "AmmoBox":
+                effectIndex = 5;
+                break;
+            case "Sand":
+                effectIndex = 3;
+                break;
+            case "Weapon":
+                effectIndex = 4;
+                break;
+            default:
+                effectIndex = 0;
+                break; 
+        }
+        GameObject impacteffect = Instantiate(_hmm.hitMarkers[effectIndex], hit.point, Quaternion.LookRotation(hit.normal));
+        Destroy(impacteffect, 1f);
     }
 
     public void stopSecondaryFunction()

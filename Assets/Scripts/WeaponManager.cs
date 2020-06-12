@@ -137,7 +137,7 @@ public class WeaponManager : MonoBehaviour
         Rigidbody rbWeapon = weapon.GetComponent<Rigidbody>();
         weapon.GetComponent<BoxCollider>().isTrigger = false;
         rbWeapon.isKinematic = false;
-        rbWeapon.AddForce(transform.forward * 6, ForceMode.VelocityChange);
+        rbWeapon.AddForce(transform.forward * 300f *Time.deltaTime, ForceMode.VelocityChange);
         _weaponCount--;
         
         // if still has weapon, switch to it
