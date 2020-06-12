@@ -17,6 +17,8 @@ public class Weapon : MonoBehaviour
     [SerializeField]
     private ParticleSystem _muzzleFlash;
     [SerializeField]
+    private ParticleSystem _shell;
+    [SerializeField]
     private GameObject _impactEffect;
 
     private ScopeIn _si;
@@ -50,6 +52,7 @@ public class Weapon : MonoBehaviour
     public void Shoot()
     {
         _muzzleFlash.Play();
+        _shell.Play();
         _currentAmmo--;
         RaycastHit hit;
         Ray origin = Camera.main.ViewportPointToRay(_center);
