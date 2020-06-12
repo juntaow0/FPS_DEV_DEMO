@@ -82,7 +82,7 @@ public class Weapon : MonoBehaviour
         if (type == 0)
         {
             if (_ads.isUsing())
-            {
+            {       
                 _ads.resetFunction();
             } 
         }
@@ -142,11 +142,21 @@ public class Weapon : MonoBehaviour
     private void OnEnable()
     {
         _isReloading = false;
-        if (transform.parent != null)
+        if (animator != null)
         {
             animator.SetBool("isReloading", false);
         } 
     }
+
+    private void OnDisable()
+    {
+        if (animator != null)
+        {
+            animator.SetBool("isReloading", false);
+        }
+    }
+
+
 
     public void getAmmo()
     {

@@ -84,9 +84,6 @@ public class WeaponManager : MonoBehaviour
             i++;
         }
         _animator.SetTrigger("onSwitch");
-        _animator.SetBool("isReloading", false);
-        _animator.SetBool("isScoped", false);
-        _animator.SetBool("isAds", false);
     }
 
     void adjustTransform(Transform weapon)
@@ -126,9 +123,6 @@ public class WeaponManager : MonoBehaviour
 
     public void dropWeapon(Transform weapon)
     {
-        _animator.SetBool("isReloading", false);
-        _animator.SetBool("isScoped", false);
-        _animator.SetBool("isAds", false);
         weapon.gameObject.SetActive(false);
         weapon.gameObject.layer = 0;
         GameObject muzzle = weapon.GetChild(0).gameObject;

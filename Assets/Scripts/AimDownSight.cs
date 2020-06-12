@@ -24,10 +24,9 @@ public class AimDownSight : MonoBehaviour
     {
         status = !status;
         animator.SetBool("isAds", status);
-        animator.SetTrigger(trigger);
-
         if (status)
         {
+            animator.SetTrigger(trigger);
             StartCoroutine(OnADS());
         }
         else
@@ -68,9 +67,17 @@ public class AimDownSight : MonoBehaviour
     private void OnEnable()
     {
         status = false;
-        if (transform.parent != null)
+        if (animator != null)
         {
             animator.SetBool("isAds", status);
+        }
+    }
+
+    private void OnDisable()
+    {
+        if (animator != null)
+        {
+            animator.SetBool("isAds", false);
         }
     }
 }

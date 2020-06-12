@@ -72,9 +72,18 @@ public class ScopeIn : MonoBehaviour
     private void OnEnable()
     {
         status = false;
-        if (transform.parent != null)
+        if (animator != null)
         {
             animator.SetBool("isScoped", status);
+        }
+    }
+
+    private void OnDisable()
+    {
+        
+        if (animator != null)
+        {
+            animator.SetBool("isScoped", false);
         }
     }
 
