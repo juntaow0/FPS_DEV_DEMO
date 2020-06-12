@@ -29,6 +29,7 @@ public class Weapon : MonoBehaviour
     public int _reserveAmmo = 30;
     public int _currentAmmo;
     public bool _isReloading = false;
+    public bool _isSwapping = false;
     public int _reserveAmmoCapacity = 30;
 
     private Vector3 _center;
@@ -137,6 +138,18 @@ public class Weapon : MonoBehaviour
             }  
         }
         _isReloading = false;
+    }
+
+    public void OnSwap()
+    {
+        StartCoroutine(SwapRoutine());
+    }
+
+    IEnumerator SwapRoutine()
+    {
+        _isSwapping = true;
+        yield return new WaitForSeconds(0.5f);
+        _isSwapping = false;
     }
 
     private void OnEnable()

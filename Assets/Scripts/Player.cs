@@ -51,7 +51,7 @@ public class Player : MonoBehaviour
                 _wm.dropWeapon(_currentWeapon.transform);
                 return;
             }
-            if (_currentWeapon._isReloading)
+            if (_currentWeapon._isReloading || _currentWeapon._isSwapping)
             {
                 return;
             }
@@ -97,6 +97,7 @@ public class Player : MonoBehaviour
             _currentWeapon.stopSecondaryFunction();
         }
         _currentWeapon = weapon.GetComponent<Weapon>();
+        _currentWeapon.OnSwap();
         hasWeapon = true;
         nextTimeToFire = 0;
     }
