@@ -2,18 +2,25 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.SceneManagement;
 
 public class Player : MonoBehaviour
 {
+    [SerializeField]
+    private int _maxHealth = 100;
+    private int _currentHealth;
     private float nextTimeToFire = 0f;
     private PlayerInputClass _pi;
     private WeaponManager _wm;
     private Weapon _currentWeapon;
     private bool hasWeapon = false;
     private Vector2 _center;
+    [SerializeField]
+    private Transform _camera;
 
     private void Awake()
     {
+        _currentHealth = _maxHealth;
         _pi = new PlayerInputClass();
         _wm = FindObjectOfType<WeaponManager>();
         _center = new Vector3(0.5f, 0.5f, 0);
@@ -25,8 +32,7 @@ public class Player : MonoBehaviour
         if (Keyboard.current.eKey.wasPressedThisFrame)
         {
             RaycastHit hit;
-            Ray origin = Camera.main.ViewportPointToRay(_center);
-            if (Physics.Raycast(origin, out hit, 5))
+            if (Physics.Raycast(_camera.position, _camera.forward, out hit, 5))
             {
                 if (hit.transform.tag == "Weapon")
                 {
@@ -96,7 +102,9 @@ public class Player : MonoBehaviour
         {
             _currentWeapon.stopSecondaryFunction();
         }
+        
         _currentWeapon = weapon.GetComponent<Weapon>();
+        _currentWeapon.assignCamera(_camera);
         _currentWeapon.OnSwap();
         hasWeapon = true;
         nextTimeToFire = 0;
@@ -118,5 +126,19 @@ public class Player : MonoBehaviour
     {
         _pi.Player.Fire.Disable();
         _pi.Player.Reload.Disable();
+    }
+
+    public void takeDamage(int amount)
+    {
+        _currentHealth -= amount;
+        if (_currentHealth < 1)
+        {
+            die();
+        }
+    }
+
+    private void die()
+    {
+        SceneManager.LoadScene("Playground");
     }
 }

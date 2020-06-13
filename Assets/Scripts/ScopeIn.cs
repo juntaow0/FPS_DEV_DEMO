@@ -19,8 +19,8 @@ public class ScopeIn : MonoBehaviour
 
     private void Awake()
     {
-        scopeOverlay = GameObject.Find("scope");
-        scopeOverlay.gameObject.SetActive(false);
+        scopeOverlay = GameObject.Find("Canvas").transform.Find("scope").gameObject;
+        //scopeOverlay.gameObject.SetActive(false);
         crosshair = GameObject.Find("crosshair");
         weaponCam = GameObject.Find("WeaponCam");
         mainCam = GameObject.Find("FPSCam").GetComponent<Camera>();

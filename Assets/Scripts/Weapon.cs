@@ -20,6 +20,9 @@ public class Weapon : MonoBehaviour
     private ParticleSystem _shell;
     private HitMarkerManager _hmm;
 
+    [SerializeField]
+    private Transform _cameraPos;
+
     private ScopeIn _si;
     private AimDownSight _ads;
     private float impForce = 300f;
@@ -45,6 +48,11 @@ public class Weapon : MonoBehaviour
         _hmm = FindObjectOfType<HitMarkerManager>();
     }
 
+    public void assignCamera(Transform camera)
+    {
+        _cameraPos = camera;
+    }
+
     public void reload(bool empty)
     {
         StartCoroutine(ReloadRoutine(empty));
@@ -56,8 +64,7 @@ public class Weapon : MonoBehaviour
         _shell.Play();
         _currentAmmo--;
         RaycastHit hit;
-        Ray origin = Camera.main.ViewportPointToRay(_center);
-        if (Physics.Raycast(origin, out hit, _effectiveRange))
+        if (Physics.Raycast(_cameraPos.position,_cameraPos.forward, out hit, _effectiveRange))
         {
             if (hit.transform.tag == "Enemy")
             {
@@ -67,6 +74,14 @@ public class Weapon : MonoBehaviour
                     enemy.takeDamage(_damage);
                 }
             }
+            else if (hit.transform.tag == "Player")
+            {
+                Player player = hit.transform.GetComponent<Player>();
+                if (player != null)
+                {
+                    player.takeDamage(_damage);
+                }
+            }
             else if (hit.transform.tag == "Destructible")
             {
 
@@ -74,7 +89,7 @@ public class Weapon : MonoBehaviour
             selectHitMarker(hit);
             if (hit.rigidbody != null)
             {
-                Vector3 dir = Camera.main.transform.forward;
+                Vector3 dir = _cameraPos.forward;
                 hit.rigidbody.AddForce(dir * 300f*Time.deltaTime,ForceMode.Impulse);
             }
         }
