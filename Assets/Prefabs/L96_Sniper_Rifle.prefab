@@ -11,10 +11,12 @@ GameObject:
   - component: {fileID: 3445616457345193358}
   - component: {fileID: 3445616457348060590}
   - component: {fileID: 3445616457347094382}
-  - component: {fileID: 3445616458405155637}
   - component: {fileID: -2194536602465341022}
   - component: {fileID: -1686011710471689813}
   - component: {fileID: 6466194689630865657}
+  - component: {fileID: -221231890116107824}
+  - component: {fileID: -8364009380157132606}
+  - component: {fileID: 6855888816663155449}
   m_Layer: 0
   m_Name: L96_Sniper_Rifle
   m_TagString: Weapon
@@ -85,34 +87,6 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
---- !u!114 &3445616458405155637
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3445616457345092014}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ebdbd6ca4269f7a4dbaf934c24d449ea, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  weaponName: AWP
-  type: 1
-  _reloadTime: 3
-  _damage: 100
-  _effectiveRange: 1000
-  _muzzleFlash: {fileID: 610504329045925969}
-  _shell: {fileID: 1050588694533320780}
-  isAutomatic: 0
-  _fireRate: 0.68
-  _magSize: 5
-  _reserveAmmo: 30
-  _currentAmmo: 0
-  _isReloading: 0
-  _isSwapping: 0
-  _reserveAmmoCapacity: 35
-  animator: {fileID: 0}
 --- !u!65 &-2194536602465341022
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -155,6 +129,66 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   scopedFOV: 15
+--- !u!114 &-221231890116107824
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3445616457345092014}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 80aaae400cdd52440976a1801154fd0a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _muzzleFlash: {fileID: 610504329045925969}
+  _shell: {fileID: 1050588694533320780}
+--- !u!114 &-8364009380157132606
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3445616457345092014}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 50eedd5bbacc9194091467634f7841a1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _weaponName: AWP
+  _damage: 100
+  _fireRate: 41
+  _magSize: 5
+  _reserveAmmoCapacity: 30
+  _reloadTime: 2.7
+  _effectiveRange: 1000
+  _impForce: 300
+  _isAutomatic: 0
+  _isADS: 0
+  isReloading: 0
+  isSwapping: 0
+  currentAmmo: 0
+  reserveAmmo: 0
+  nextFireTime: 0
+--- !u!95 &6855888816663155449
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3445616457345092014}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 0}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!1001 &4963625293462218739
 PrefabInstance:
   m_ObjectHideFlags: 0

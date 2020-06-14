@@ -11,10 +11,12 @@ GameObject:
   - component: {fileID: 7282750502569964688}
   - component: {fileID: 7282750502567064752}
   - component: {fileID: 7282750502568195696}
-  - component: {fileID: 7282750503598466632}
   - component: {fileID: 6299605492261906842}
   - component: {fileID: -1882801390368129654}
   - component: {fileID: -2463439266694464966}
+  - component: {fileID: 9031992417211574251}
+  - component: {fileID: 8975500512231090202}
+  - component: {fileID: 6742725179193526581}
   m_Layer: 0
   m_Name: M4_Carbine
   m_TagString: Weapon
@@ -85,34 +87,6 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
---- !u!114 &7282750503598466632
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7282750502570125488}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ebdbd6ca4269f7a4dbaf934c24d449ea, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  weaponName: M4A1
-  type: 0
-  _reloadTime: 2.5
-  _damage: 26
-  _effectiveRange: 500
-  _muzzleFlash: {fileID: 1782195100742259720}
-  _shell: {fileID: 3959177301017212678}
-  isAutomatic: 1
-  _fireRate: 10
-  _magSize: 30
-  _reserveAmmo: 60
-  _currentAmmo: 0
-  _isReloading: 0
-  _isSwapping: 0
-  _reserveAmmoCapacity: 90
-  animator: {fileID: 0}
 --- !u!65 &6299605492261906842
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -155,6 +129,67 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   adsFOV: 50
+--- !u!114 &9031992417211574251
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7282750502570125488}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 80aaae400cdd52440976a1801154fd0a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _muzzleFlash: {fileID: 1782195100742259720}
+  _shell: {fileID: 3959177301017212678}
+  _firePoint: {fileID: 0}
+--- !u!114 &8975500512231090202
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7282750502570125488}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 50eedd5bbacc9194091467634f7841a1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _weaponName: M4A1
+  _damage: 23
+  _fireRate: 600
+  _magSize: 30
+  _reserveAmmoCapacity: 90
+  _reloadTime: 1.5
+  _effectiveRange: 500
+  _impForce: 300
+  _isAutomatic: 1
+  _isADS: 1
+  isReloading: 0
+  isSwapping: 0
+  currentAmmo: 0
+  reserveAmmo: 0
+  nextFireTime: 0
+--- !u!95 &6742725179193526581
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7282750502570125488}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 0}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!1001 &7282750503940377645
 PrefabInstance:
   m_ObjectHideFlags: 0

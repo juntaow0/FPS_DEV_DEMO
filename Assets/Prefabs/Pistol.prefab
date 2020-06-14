@@ -11,10 +11,12 @@ GameObject:
   - component: {fileID: 4185545888716018213}
   - component: {fileID: 4185545888719409669}
   - component: {fileID: 4185545888718311621}
-  - component: {fileID: 4185545889396624766}
   - component: {fileID: 2606449210623059318}
   - component: {fileID: -5898374941819470174}
   - component: {fileID: 5018991373234801990}
+  - component: {fileID: 3253344498862606180}
+  - component: {fileID: 6105228049497969263}
+  - component: {fileID: 8098091254950552447}
   m_Layer: 0
   m_Name: Pistol
   m_TagString: Weapon
@@ -85,34 +87,6 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
---- !u!114 &4185545889396624766
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4185545888716049925}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ebdbd6ca4269f7a4dbaf934c24d449ea, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  weaponName: Glock
-  type: 0
-  _reloadTime: 2
-  _damage: 18
-  _effectiveRange: 200
-  _muzzleFlash: {fileID: 7801982526413433331}
-  _shell: {fileID: 8140737010384626639}
-  isAutomatic: 0
-  _fireRate: 6.66
-  _magSize: 20
-  _reserveAmmo: 100
-  _currentAmmo: 0
-  _isReloading: 0
-  _isSwapping: 0
-  _reserveAmmoCapacity: 120
-  animator: {fileID: 0}
 --- !u!65 &2606449210623059318
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -155,6 +129,66 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   adsFOV: 50
+--- !u!114 &3253344498862606180
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4185545888716049925}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 80aaae400cdd52440976a1801154fd0a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _muzzleFlash: {fileID: 7801982526413433331}
+  _shell: {fileID: 8140737010384626639}
+--- !u!114 &6105228049497969263
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4185545888716049925}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 50eedd5bbacc9194091467634f7841a1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _weaponName: Glock
+  _damage: 16
+  _fireRate: 400
+  _magSize: 20
+  _reserveAmmoCapacity: 120
+  _reloadTime: 1.2
+  _effectiveRange: 300
+  _impForce: 300
+  _isAutomatic: 0
+  _isADS: 1
+  isReloading: 0
+  isSwapping: 0
+  currentAmmo: 0
+  reserveAmmo: 0
+  nextFireTime: 0
+--- !u!95 &8098091254950552447
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4185545888716049925}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 0}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!1001 &1291427235305861590
 PrefabInstance:
   m_ObjectHideFlags: 0

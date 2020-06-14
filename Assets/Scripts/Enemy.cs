@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Enemy : MonoBehaviour
+public class Enemy : MonoBehaviour,IDamage
 {
     [SerializeField]
     private int _maxHealth = 100;
@@ -18,7 +18,6 @@ public class Enemy : MonoBehaviour
     {
         
     }
-
     public void takeDamage(int amount)
     {
         _currentHealth -= amount;

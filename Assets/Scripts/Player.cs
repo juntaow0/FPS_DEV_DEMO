@@ -4,26 +4,27 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
 
-public class Player : MonoBehaviour
+public class Player : MonoBehaviour, IDamage
 {
     [SerializeField]
     private int _maxHealth = 100;
-    private int _currentHealth;
-    private float nextTimeToFire = 0f;
-    private PlayerInputClass _pi;
-    private WeaponManager _wm;
-    private Weapon _currentWeapon;
-    private bool hasWeapon = false;
-    private Vector2 _center;
     [SerializeField]
-    private Transform _camera;
+    private float _interactionDistance = 5f;
+    [SerializeField]
+    private WeaponHolder _weaponHolder;
+    [SerializeField]
+    private Camera _FPSCam;
+    [SerializeField]
+    private Camera _weaponCam;
 
+    private int _currentHealth;
+    private PlayerInputClass _pi;
+    private WeaponController _currentWeapon;
+    private bool hasWeapon = false;
     private void Awake()
     {
         _currentHealth = _maxHealth;
         _pi = new PlayerInputClass();
-        _wm = FindObjectOfType<WeaponManager>();
-        _center = new Vector3(0.5f, 0.5f, 0);
     }
 
     // Update is called once per frame
@@ -32,12 +33,12 @@ public class Player : MonoBehaviour
         if (Keyboard.current.eKey.wasPressedThisFrame)
         {
             RaycastHit hit;
-            if (Physics.Raycast(_camera.position, _camera.forward, out hit, 5))
+            if (Physics.Raycast(_FPSCam.transform.position, _FPSCam.transform.forward, out hit, _interactionDistance))
             {
                 if (hit.transform.tag == "Weapon")
                 {
                     // add disabled weapon to weapon manager
-                    _wm.pickUpWeapon(hit.transform);
+                   _weaponHolder.pickUpWeapon(hit.transform);
                 }else if (hit.transform.tag == "AmmoBox")
                 {
                     if (_currentWeapon != null)
@@ -54,80 +55,65 @@ public class Player : MonoBehaviour
             if (Keyboard.current.gKey.wasPressedThisFrame)
             {
                 _currentWeapon.stopSecondaryFunction();
-                _wm.dropWeapon(_currentWeapon.transform);
+                _weaponHolder.dropWeapon(_currentWeapon.transform);
                 return;
             }
-            if (_currentWeapon._isReloading || _currentWeapon._isSwapping)
+            if (_currentWeapon.isReloading() || _currentWeapon.isSwapping())
             {
                 return;
             }
-            if (_currentWeapon._currentAmmo <= 0 && _currentWeapon._reserveAmmo > 0)
-            {
-                _currentWeapon.stopSecondaryFunction();
-                _currentWeapon.reload(true);
-                return;
-            }
-            if (_pi.Player.Reload.triggered && _currentWeapon._currentAmmo < _currentWeapon._magSize && _currentWeapon._reserveAmmo > 0)
+            if (_pi.Player.Reload.triggered)
             {
                 _currentWeapon.stopSecondaryFunction();
-                _currentWeapon.reload(false);
+                _currentWeapon.reload();
                 return;
             }
-            if (_currentWeapon.isAutomatic)
+            if (_currentWeapon.isAutomatic())
             {
-                if (Mouse.current.leftButton.isPressed && Time.time >= nextTimeToFire && _currentWeapon._currentAmmo > 0)
+                if (Mouse.current.leftButton.isPressed)
                 {
-                    nextTimeToFire = Time.time + 1f / _currentWeapon._fireRate;
-                    _currentWeapon.Shoot();
+                    _currentWeapon.Fire();
                 }
             }
             else
             {
-                if (_pi.Player.Fire.triggered && Time.time >= nextTimeToFire && _currentWeapon._currentAmmo > 0)
+                if (_pi.Player.Fire.triggered)
                 {
-                    nextTimeToFire = Time.time + 1f / _currentWeapon._fireRate;
-                    _currentWeapon.Shoot();
+                    _currentWeapon.Fire();
                 }
             }
             if (Mouse.current.rightButton.wasPressedThisFrame)
             {
-                _currentWeapon.secondayFunction();
+                _currentWeapon.secondaryFunction();
             }
         }      
     }
-
     public void updateWeapon(Transform weapon)
     {
         if (_currentWeapon != null)
         {
             _currentWeapon.stopSecondaryFunction();
         }
-        
-        _currentWeapon = weapon.GetComponent<Weapon>();
-        _currentWeapon.assignCamera(_camera);
+        _currentWeapon = weapon.GetComponent<WeaponController>();
+        _currentWeapon.assignCamera(_FPSCam,_weaponCam);
         _currentWeapon.OnSwap();
         hasWeapon = true;
-        nextTimeToFire = 0;
     }
-
     public void OnDropAllWweapon()
     {
         hasWeapon = false;
         _currentWeapon = null;
     }
-
     private void OnEnable()
     {
         _pi.Player.Fire.Enable();
         _pi.Player.Reload.Enable();
     }
-
     private void OnDisable()
     {
         _pi.Player.Fire.Disable();
         _pi.Player.Reload.Disable();
     }
-
     public void takeDamage(int amount)
     {
         _currentHealth -= amount;
@@ -136,7 +122,6 @@ public class Player : MonoBehaviour
             die();
         }
     }
-
     private void die()
     {
         SceneManager.LoadScene("Playground");

@@ -12,7 +12,7 @@ public class EnemyAI : MonoBehaviour
     [SerializeField]
     private Transform _player;
     [SerializeField]
-    private Weapon _weapon;
+    private WeaponController _weapon;
     private NavMeshAgent _agent;
     private float nextTimeToFire = 0f;
     // Start is called before the first frame update
@@ -40,25 +40,11 @@ public class EnemyAI : MonoBehaviour
 
     void ShootStraight()
     {
-        if (_weapon._isReloading)
+        if (_weapon.isReloading())
         {
             return;
         }
-        if (_weapon._reserveAmmo < 1)
-        {
-            _weapon.getAmmo();
-        }
-        if (_weapon._currentAmmo <= 0 && _weapon._reserveAmmo > 0)
-        {
-            _weapon.reload(true);
-            return;
-        }
-
-        if (Time.time >= nextTimeToFire && _weapon._currentAmmo > 0)
-        {
-            nextTimeToFire = Time.time + 1f / _weapon._fireRate;
-            _weapon.Shoot();
-        }
+        _weapon.Fire();
     }
 
     void LookAtTarget()

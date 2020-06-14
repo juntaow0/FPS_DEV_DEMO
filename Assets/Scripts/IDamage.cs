@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class AmmoBox : MonoBehaviour
+public interface IDamage
 {
-    
+    void takeDamage(int amount);
 }
