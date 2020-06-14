@@ -44,10 +44,13 @@ public class AimDownSight : MonoBehaviour
     }
     IEnumerator OnADS()
     {
+        prevFOV = _fpsCam.fieldOfView;
         yield return new WaitForSeconds(0.2f);
-        UIManager.instance.setCrosshair(false);
-        prevFOV =_fpsCam.fieldOfView;
-        _fpsCam.fieldOfView = adsFOV;
+        if (status)
+        {
+            UIManager.instance.setCrosshair(false);
+            _fpsCam.fieldOfView = adsFOV;
+        } 
     }
     void OnUnAds()
     {

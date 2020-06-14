@@ -44,12 +44,16 @@ public class ScopeIn : MonoBehaviour
     }
     IEnumerator OnScoped()
     {
-        yield return new WaitForSeconds(0.27f);
-        UIManager.instance.setScope(true);
-        UIManager.instance.setCrosshair(false);
-        _weaponCam.gameObject.SetActive(false);
         prevFOV = _fpsCam.fieldOfView;
-        _fpsCam.fieldOfView = scopedFOV;
+        yield return new WaitForSeconds(0.27f);
+        if (status)
+        {
+            UIManager.instance.setScope(true);
+            UIManager.instance.setCrosshair(false);
+            _weaponCam.gameObject.SetActive(false);
+            _fpsCam.fieldOfView = scopedFOV;
+        }
+        
     }
     void OnUnscoped()
     {
