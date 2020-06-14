@@ -206,6 +206,7 @@ public class WeaponController : MonoBehaviour
     private void OnDisable()
     {
         _animator.SetBool("isReloading", false);
+        _animator.enabled = false;
     }
     public void getAmmo()
     {

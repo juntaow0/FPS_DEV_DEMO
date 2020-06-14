@@ -54,6 +54,7 @@ public class WeaponHolder : MonoBehaviour
     }
     void keyboardSelect()
     {
+        
         if (Keyboard.current.digit1Key.wasPressedThisFrame)
         {
             _selectedWeaponIndex = 0;
@@ -78,6 +79,7 @@ public class WeaponHolder : MonoBehaviour
         {
             if (i == _selectedWeaponIndex)
             {
+                adjustTransform(weapon);
                 weapon.gameObject.SetActive(true);
                 _player.updateWeapon(weapon);
             }
@@ -87,7 +89,6 @@ public class WeaponHolder : MonoBehaviour
             }
             i++;
         }
-        //_animator.SetTrigger("onSwitch");
     }
 
     void adjustTransform(Transform weapon)
