@@ -146,6 +146,7 @@ public class WeaponHolder : MonoBehaviour
         weapon.gameObject.SetActive(false);
         resetTransform(weapon);
         resetLayer(weapon.gameObject);
+        weapon.GetComponent<Animator>().enabled = false;
         weapon.gameObject.SetActive(true);
         Rigidbody rbWeapon = weapon.GetComponent<Rigidbody>();
         weapon.GetComponent<BoxCollider>().enabled = true;

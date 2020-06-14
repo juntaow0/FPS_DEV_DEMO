@@ -64,9 +64,12 @@ public class Player : MonoBehaviour, IDamage
             }
             if (_pi.Player.Reload.triggered)
             {
-                _currentWeapon.stopSecondaryFunction();
                 _currentWeapon.reload();
                 return;
+            }
+            if (Mouse.current.rightButton.wasPressedThisFrame)
+            {
+                _currentWeapon.secondaryFunction();
             }
             if (_currentWeapon.isAutomatic())
             {
@@ -81,11 +84,7 @@ public class Player : MonoBehaviour, IDamage
                 {
                     _currentWeapon.Fire();
                 }
-            }
-            if (Mouse.current.rightButton.wasPressedThisFrame)
-            {
-                _currentWeapon.secondaryFunction();
-            }
+            } 
         }      
     }
     public void updateWeapon(Transform weapon)

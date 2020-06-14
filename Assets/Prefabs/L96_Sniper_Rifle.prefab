@@ -143,6 +143,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _muzzleFlash: {fileID: 610504329045925969}
   _shell: {fileID: 1050588694533320780}
+  _firePoint: {fileID: 0}
 --- !u!114 &-8364009380157132606
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -178,9 +179,9 @@ Animator:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3445616457345092014}
-  m_Enabled: 1
+  m_Enabled: 0
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 2cb894960ec291b4bb09f92adbd9f540, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0

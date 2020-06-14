@@ -34,6 +34,7 @@ public class WeaponController : MonoBehaviour
     {
         if (canReload())
         {
+            stopSecondaryFunction();
             _weaponStats.isReloading = true;
             _animator.SetBool("isReloading", true);
             StartCoroutine(ReloadRoutine());
@@ -192,12 +193,14 @@ public class WeaponController : MonoBehaviour
     }
     public void OnSwap()
     {
+        _animator.enabled = true;
         StartCoroutine(SwapRoutine());
     }
     IEnumerator SwapRoutine()
     {
         _weaponStats.isSwapping = true;
-        yield return new WaitForSeconds(0.5f);
+        
+        yield return new WaitForSeconds(0.4f);
         _weaponStats.isSwapping = false;
     }
     private void OnDisable()
