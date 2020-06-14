@@ -46,7 +46,7 @@ public class ScopeIn : MonoBehaviour
     {
         prevFOV = _fpsCam.fieldOfView;
         yield return new WaitForSeconds(0.27f);
-        if (status)
+        if (status) // fix execution order problem caused by coroutines.
         {
             UIManager.instance.setScope(true);
             UIManager.instance.setCrosshair(false);

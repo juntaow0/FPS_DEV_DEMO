@@ -46,7 +46,7 @@ public class AimDownSight : MonoBehaviour
     {
         prevFOV = _fpsCam.fieldOfView;
         yield return new WaitForSeconds(0.2f);
-        if (status)
+        if (status) // fix execution order problem caused by coroutines.
         {
             UIManager.instance.setCrosshair(false);
             _fpsCam.fieldOfView = adsFOV;

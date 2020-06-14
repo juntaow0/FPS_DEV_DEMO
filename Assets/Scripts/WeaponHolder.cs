@@ -79,7 +79,7 @@ public class WeaponHolder : MonoBehaviour
         {
             if (i == _selectedWeaponIndex)
             {
-                adjustTransform(weapon);
+                adjustTransform(weapon); // fix transform problem caused by disabling animator
                 weapon.gameObject.SetActive(true);
                 _player.updateWeapon(weapon);
             }
