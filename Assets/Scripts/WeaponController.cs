@@ -12,9 +12,12 @@ public class WeaponController : MonoBehaviour
     private Transform _firePoint;
 
     private WeaponStats _weaponStats;
+    private WeaponSway _weaponSway;
     private Animator _animator;
     private ScopeIn _scopeFunction;
     private AimDownSight _ADSFunction;
+
+    private bool isADS = false;
 
     private void Awake()
     {

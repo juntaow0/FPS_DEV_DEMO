@@ -17,6 +17,7 @@ GameObject:
   - component: {fileID: 9031992417211574251}
   - component: {fileID: 8975500512231090202}
   - component: {fileID: 6742725179193526581}
+  - component: {fileID: 6600821249518288136}
   m_Layer: 0
   m_Name: M4_Carbine
   m_TagString: Weapon
@@ -190,6 +191,18 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!114 &6600821249518288136
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7282750502570125488}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b500defb80adb4c448cb733aceee5d66, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &7282750503940377645
 PrefabInstance:
   m_ObjectHideFlags: 0

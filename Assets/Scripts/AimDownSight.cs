@@ -9,6 +9,7 @@ public class AimDownSight : MonoBehaviour
 
     private Camera _fpsCam;
     private Animator _animator;
+    private WeaponSway _weaponSway;
 
     private bool status = false;
     private float prevFOV;
@@ -20,11 +21,13 @@ public class AimDownSight : MonoBehaviour
         {
             Debug.LogError("No Animator!");
         }
+        _weaponSway = FindObjectOfType<WeaponSway>();
     }
 
     public void useFunction()
     {
         status = !status;
+        _weaponSway.setADS(status);
         _animator.SetBool("isAds", status);
         if (status)
         {
@@ -40,6 +43,7 @@ public class AimDownSight : MonoBehaviour
     public void resetFunction()
     {
         status = false;
+        _weaponSway.setADS(status);
         OnUnAds();
     }
     IEnumerator OnADS()

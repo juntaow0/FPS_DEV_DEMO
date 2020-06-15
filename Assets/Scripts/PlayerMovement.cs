@@ -21,6 +21,8 @@ public class PlayerMovement : MonoBehaviour
     private Vector3 _refVelocityLand;
     private float _jumpVelocity;
 
+    public bool isMoving { get; private set; }
+
     private CharacterController _cc;
     private PlayerInputClass _pi;
 
@@ -38,6 +40,7 @@ public class PlayerMovement : MonoBehaviour
             Debug.LogError("No Character Controller attached!");
         }
         _jumpVelocity = _gravity;
+        isMoving = false;
     }
 
     private void Update()
@@ -56,6 +59,14 @@ public class PlayerMovement : MonoBehaviour
         float z = movementInput.y;
 
         Vector3 dir = new Vector3(x, 0f, z);
+        if (dir.sqrMagnitude == 0)
+        {
+            isMoving = false;
+        }
+        else
+        {
+            isMoving = true;
+        }
         _velocity.y = 0;
         if (_cc.isGrounded)
         {
@@ -79,6 +90,7 @@ public class PlayerMovement : MonoBehaviour
         }
         else
         {
+            isMoving = false;
             _jumpVelocity += _gravity * Time.deltaTime;
             if (dir.sqrMagnitude != 0)
             {
