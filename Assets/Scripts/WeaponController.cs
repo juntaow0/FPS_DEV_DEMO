@@ -106,6 +106,7 @@ public class WeaponController : MonoBehaviour
     {
         _muzzleFlash.Play();
         _shell.Play();
+        _animator.SetTrigger("shoot");
         _weaponStats.currentAmmo--;
         RaycastHit hit;
         if (Physics.Raycast(_firePoint.position, _firePoint.forward, out hit, _weaponStats.EffectiveRange))
