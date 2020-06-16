@@ -209,6 +209,7 @@ public class WeaponController : MonoBehaviour
     public void OnSwap()
     {
         _animator.enabled = true;
+        _firePoint.localRotation = Quaternion.identity;
         StartCoroutine(SwapRoutine());
     }
     IEnumerator SwapRoutine()

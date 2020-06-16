@@ -168,9 +168,9 @@ MonoBehaviour:
   _impForce: 300
   _isAutomatic: 0
   _isADS: 1
-  recoilSpeed: 0.1
-  recoilDecay: 0.3
-  recoilScale: 10
+  recoilSpeed: 1
+  recoilDecay: 0.5
+  recoilScale: 1.5
   bulletSpread: 1
   isReloading: 0
   isSwapping: 0
