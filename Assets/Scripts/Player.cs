@@ -82,6 +82,11 @@ public class Player : MonoBehaviour, IDamage
             {
                 if (_pi.Player.Fire.triggered)
                 {
+                    if (_currentWeapon.isEmpty())
+                    {
+                        _currentWeapon.reload();
+                        return;
+                    }
                     _currentWeapon.Fire();
                 }
             } 

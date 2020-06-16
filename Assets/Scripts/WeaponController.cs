@@ -107,13 +107,10 @@ public class WeaponController : MonoBehaviour
     {
         _muzzleFlash.Play();
         _shell.Play();
-        _animator.SetTrigger("shoot");
         _weaponStats.currentAmmo--;
-
+        _animator.SetTrigger("shoot");
         Vector3 offsetAngle = _weaponRecoil.getAngleOffset();
         Vector3 rayCastDir = Quaternion.AngleAxis(offsetAngle.x, _firePoint.right) * Quaternion.AngleAxis(offsetAngle.y, _firePoint.up) * _firePoint.forward;
-        Debug.Log(_firePoint.localRotation);
-        Debug.Log(rayCastDir);
 
         RaycastHit hit;
         if (Physics.Raycast(_firePoint.position, rayCastDir, out hit, _weaponStats.EffectiveRange))
@@ -153,10 +150,11 @@ public class WeaponController : MonoBehaviour
         if (canFire())
         {
             FireFunction();
-        }
-        if (_weaponStats.currentAmmo == 0)
-        {
-            reload();
+            if (!_weaponStats.IsADS && _scopeFunction.isUsing())
+            {
+                _scopeFunction.resetFunction();
+                _scopeFunction.autoRescope();
+            }
         }
     }
     public void secondaryFunction()
@@ -258,6 +256,11 @@ public class WeaponController : MonoBehaviour
     }
     public bool isAutomatic()
     {
-        return _weaponStats.IsAutomatic;
+        return _weaponStats.IsAutomatic;    
+    }
+
+    public bool isEmpty()
+    {
+        return (_weaponStats.currentAmmo == 0);
     }
 }

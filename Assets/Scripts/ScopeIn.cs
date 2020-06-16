@@ -42,18 +42,37 @@ public class ScopeIn : MonoBehaviour
         status = false;
         OnUnscoped();
     }
+
+    public void autoRescope()
+    {
+        StartCoroutine(autoRescopeRoutine());
+    }
+
+    IEnumerator autoRescopeRoutine()
+    {
+        status = true;
+        prevFOV = _fpsCam.fieldOfView;
+        yield return new WaitForSeconds(0.96f);
+        if (status)
+        {
+            _weaponCam.gameObject.SetActive(false);
+            UIManager.instance.setScope(true);
+            UIManager.instance.setCrosshair(false);
+            _fpsCam.fieldOfView = scopedFOV;
+        } 
+    }
+
     IEnumerator OnScoped()
     {
         prevFOV = _fpsCam.fieldOfView;
-        yield return new WaitForSeconds(0.27f);
+        yield return new WaitForSeconds(0.22f);
         if (status) // fix execution order problem caused by coroutines.
         {
+            _weaponCam.gameObject.SetActive(false);
             UIManager.instance.setScope(true);
             UIManager.instance.setCrosshair(false);
-            _weaponCam.gameObject.SetActive(false);
             _fpsCam.fieldOfView = scopedFOV;
         }
-        
     }
     void OnUnscoped()
     {
