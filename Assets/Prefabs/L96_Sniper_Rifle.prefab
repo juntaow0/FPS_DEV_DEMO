@@ -18,6 +18,7 @@ GameObject:
   - component: {fileID: -8364009380157132606}
   - component: {fileID: 6855888816663155449}
   - component: {fileID: 3196981648204540978}
+  - component: {fileID: 2470879307710547677}
   m_Layer: 0
   m_Name: L96_Sniper_Rifle
   m_TagString: Weapon
@@ -167,11 +168,16 @@ MonoBehaviour:
   _impForce: 300
   _isAutomatic: 0
   _isADS: 0
+  recoilSpeed: 0.1
+  recoilDecay: 0.7
+  recoilScale: 15
+  bulletSpread: 0
   isReloading: 0
   isSwapping: 0
   currentAmmo: 0
   reserveAmmo: 0
   nextFireTime: 0
+  currentRecoil: 0
 --- !u!95 &6855888816663155449
 Animator:
   serializedVersion: 3
@@ -201,6 +207,18 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: b500defb80adb4c448cb733aceee5d66, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &2470879307710547677
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3445616457345092014}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c3cba4a8e905efa42813116c6c0148a1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1001 &4963625293462218739

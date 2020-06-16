@@ -12,10 +12,10 @@ public class WeaponController : MonoBehaviour
     private Transform _firePoint;
 
     private WeaponStats _weaponStats;
-    private WeaponSway _weaponSway;
     private Animator _animator;
     private ScopeIn _scopeFunction;
     private AimDownSight _ADSFunction;
+    private WeaponRecoil _weaponRecoil;
 
     private bool isADS = false;
 
@@ -32,6 +32,7 @@ public class WeaponController : MonoBehaviour
             Debug.LogError("No Animator!");
         }
         assignSecondaryFunction();
+        _weaponRecoil = GetComponent<WeaponRecoil>();
     }
     public void reload()
     {
@@ -108,8 +109,14 @@ public class WeaponController : MonoBehaviour
         _shell.Play();
         _animator.SetTrigger("shoot");
         _weaponStats.currentAmmo--;
+
+        Vector3 offsetAngle = _weaponRecoil.getAngleOffset();
+        Vector3 rayCastDir = Quaternion.AngleAxis(offsetAngle.x, _firePoint.right) * Quaternion.AngleAxis(offsetAngle.y, _firePoint.up) * _firePoint.forward;
+        Debug.Log(_firePoint.localRotation);
+        Debug.Log(rayCastDir);
+
         RaycastHit hit;
-        if (Physics.Raycast(_firePoint.position, _firePoint.forward, out hit, _weaponStats.EffectiveRange))
+        if (Physics.Raycast(_firePoint.position, rayCastDir, out hit, _weaponStats.EffectiveRange))
         {
             // add interface for taking damange
             if (hit.transform.tag == "Enemy")
@@ -135,6 +142,10 @@ public class WeaponController : MonoBehaviour
                 hit.rigidbody.AddForce(dir * 300f * Time.deltaTime, ForceMode.Impulse);
             }
         }
+        _weaponStats.currentRecoil += _weaponStats.RecoilSpeed;
+        _weaponStats.currentRecoil = Mathf.Clamp(_weaponStats.currentRecoil, 0, _weaponStats.MaxRecoil);
+        offsetAngle = _weaponRecoil.getAngleOffset();
+        _firePoint.localRotation = Quaternion.Euler(offsetAngle);
         _weaponStats.nextFireTime = Time.time + 60f/_weaponStats.FireRate;
     }
     public void Fire()
@@ -226,6 +237,7 @@ public class WeaponController : MonoBehaviour
     public void assignCamera(Camera FPSCam, Camera weaponCam)
     {
         _firePoint = FPSCam.transform;
+        _weaponRecoil.assignCamera(_firePoint);
         if (_weaponStats.IsADS)
         {
             _ADSFunction.assignCameras(FPSCam);

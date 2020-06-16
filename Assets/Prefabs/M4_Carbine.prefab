@@ -18,6 +18,7 @@ GameObject:
   - component: {fileID: 8975500512231090202}
   - component: {fileID: 6742725179193526581}
   - component: {fileID: 6600821249518288136}
+  - component: {fileID: -2779416880993822386}
   m_Layer: 0
   m_Name: M4_Carbine
   m_TagString: Weapon
@@ -167,11 +168,16 @@ MonoBehaviour:
   _impForce: 300
   _isAutomatic: 1
   _isADS: 1
+  recoilSpeed: 0.1
+  recoilDecay: 0.9
+  recoilScale: 8
+  bulletSpread: 0.8
   isReloading: 0
   isSwapping: 0
   currentAmmo: 0
   reserveAmmo: 0
   nextFireTime: 0
+  currentRecoil: 0
 --- !u!95 &6742725179193526581
 Animator:
   serializedVersion: 3
@@ -201,6 +207,18 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: b500defb80adb4c448cb733aceee5d66, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &-2779416880993822386
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7282750502570125488}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c3cba4a8e905efa42813116c6c0148a1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1001 &7282750503940377645

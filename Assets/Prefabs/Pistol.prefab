@@ -18,6 +18,7 @@ GameObject:
   - component: {fileID: 6105228049497969263}
   - component: {fileID: 8098091254950552447}
   - component: {fileID: -6562996769922712775}
+  - component: {fileID: 5174778011738234937}
   m_Layer: 0
   m_Name: Pistol
   m_TagString: Weapon
@@ -167,11 +168,16 @@ MonoBehaviour:
   _impForce: 300
   _isAutomatic: 0
   _isADS: 1
+  recoilSpeed: 0.1
+  recoilDecay: 0.3
+  recoilScale: 10
+  bulletSpread: 1
   isReloading: 0
   isSwapping: 0
   currentAmmo: 0
   reserveAmmo: 0
   nextFireTime: 0
+  currentRecoil: 0
 --- !u!95 &8098091254950552447
 Animator:
   serializedVersion: 3
@@ -201,6 +207,18 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: b500defb80adb4c448cb733aceee5d66, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &5174778011738234937
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4185545888716049925}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c3cba4a8e905efa42813116c6c0148a1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1001 &1291427235305861590

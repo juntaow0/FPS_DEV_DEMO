@@ -73,12 +73,47 @@ public class WeaponStats : MonoBehaviour
         get => _isADS;
     }
 
+    [SerializeField]
+    private float recoilSpeed = 0.1f;
+    public float RecoilSpeed
+    {
+        get => recoilSpeed;
+    }
+
+    [SerializeField]
+    private float recoilDecay = 1f;
+    public float RecoilDecay
+    {
+        get => recoilDecay;
+    }
+
+    [SerializeField]
+    private float recoilScale = 1f;
+    public float RecoilScale
+    {
+        get => recoilScale;
+    }
+
+    [SerializeField]
+    private float bulletSpread = 0.5f;
+    public float BulletSpread
+    {
+        get => bulletSpread;
+    }
+
+    private float maxRecoil = 1f;
+    public float MaxRecoil
+    {
+        get => maxRecoil;
+    }
+
     // runtime states
     public bool isReloading = false;
     public bool isSwapping = false;
     public int currentAmmo;
     public int reserveAmmo = 0;
     public float nextFireTime = 0;
+    public float currentRecoil = 0;
 
     private void Awake()
     {
@@ -88,5 +123,6 @@ public class WeaponStats : MonoBehaviour
     {
         isReloading = false;
         nextFireTime = 0;
+        currentRecoil = 0;
     }
 }
