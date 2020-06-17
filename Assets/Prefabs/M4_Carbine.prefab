@@ -171,7 +171,7 @@ MonoBehaviour:
   recoilSpeed: 0.1
   recoilDecay: 0.9
   recoilScale: 8
-  bulletSpread: 0.8
+  bulletSpread: 5
   isReloading: 0
   isSwapping: 0
   currentAmmo: 0

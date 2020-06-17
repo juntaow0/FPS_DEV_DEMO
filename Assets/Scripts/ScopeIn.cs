@@ -57,7 +57,6 @@ public class ScopeIn : MonoBehaviour
         {
             _weaponCam.gameObject.SetActive(false);
             UIManager.instance.setScope(true);
-            UIManager.instance.setCrosshair(false);
             _fpsCam.fieldOfView = scopedFOV;
         } 
     }
@@ -70,14 +69,12 @@ public class ScopeIn : MonoBehaviour
         {
             _weaponCam.gameObject.SetActive(false);
             UIManager.instance.setScope(true);
-            UIManager.instance.setCrosshair(false);
             _fpsCam.fieldOfView = scopedFOV;
         }
     }
     void OnUnscoped()
     {
         UIManager.instance.setScope(false);
-        UIManager.instance.setCrosshair(true);
         _weaponCam.gameObject.SetActive(true);
         _fpsCam.fieldOfView = prevFOV;
     }

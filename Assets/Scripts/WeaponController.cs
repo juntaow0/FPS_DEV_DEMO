@@ -133,6 +133,7 @@ public class WeaponController : MonoBehaviour
                 }
             }
             HitMarkerManager.instance.selectHitMarker(hit);
+            ObjectPooler.instance.SpawnFromPool("bulletHole", hit.point, Quaternion.FromToRotation(Vector3.up,hit.normal));
             if (hit.rigidbody != null)
             {
                 Vector3 dir = _firePoint.forward;
@@ -208,6 +209,14 @@ public class WeaponController : MonoBehaviour
     {
         _animator.enabled = true;
         _firePoint.localRotation = Quaternion.identity;
+        if (!_weaponStats.IsADS)
+        {
+            UIManager.instance.setCrosshair(false);
+        }
+        else
+        {
+            UIManager.instance.setCrosshair(true);
+        }
         StartCoroutine(SwapRoutine());
     }
     IEnumerator SwapRoutine()
