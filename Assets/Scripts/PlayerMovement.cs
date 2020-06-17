@@ -26,8 +26,7 @@ public class PlayerMovement : MonoBehaviour
     private CharacterController _cc;
     private PlayerInputClass _pi;
 
-    private float prevX = 0;
-    private float prevZ = 0;
+    private Vector3 prevDir;
 
     Vector2 movementInput;
     private void Awake()
@@ -59,15 +58,9 @@ public class PlayerMovement : MonoBehaviour
         float z = movementInput.y;
 
         Vector3 dir = new Vector3(x, 0f, z);
-        if (dir.sqrMagnitude == 0)
-        {
-            isMoving = false;
-        }
-        else
-        {
-            isMoving = true;
-        }
+        dir = transform.TransformDirection(dir).normalized;
         _velocity.y = 0;
+        
         if (_cc.isGrounded)
         {
             _jumpVelocity = _gravity;
@@ -77,46 +70,32 @@ public class PlayerMovement : MonoBehaviour
             }
             if (dir.sqrMagnitude == 0 && _velocity.sqrMagnitude!=0)
             {
-
+                isMoving = false;
                 _velocity = Vector3.SmoothDamp(_velocity, Vector3.zero, ref _refVelocityLand, _stopSmoothTime);
             }
             else
             {
+                isMoving = true;
                 Vector3 targetVelocity = dir * _speed;
-                targetVelocity = transform.TransformDirection(targetVelocity);
                 _velocity = Vector3.SmoothDamp(_velocity, targetVelocity, ref _refVelocityLand, _startSmoothTime);
+                prevDir = dir;
             }
-            
         }
         else
         {
             isMoving = false;
             _jumpVelocity += _gravity * Time.deltaTime;
-            if (dir.sqrMagnitude != 0)
+
+            if (x != 0)
             {
-                if (prevX == -x)
-                {
-                    dir.x = 0;
-                }
-                if (prevZ == -z)
-                {
-                    dir.z = 0;
-                }
-                _velocity = dir * _velocity.magnitude;
-                _velocity = transform.TransformDirection(_velocity);
+                _velocity = _velocity.magnitude * transform.forward;
             }
+            
             _velocity -= (_velocity * _airFriction)*Time.deltaTime;
-        }     
+        }
+        
         _velocity.y = _jumpVelocity;
         _cc.Move(_velocity * Time.deltaTime);
-        if (x != 0)
-        {
-            prevX = x;
-        }
-        if (z != 0)
-        {
-            prevZ = z;
-        } 
     }
 
     private void OnEnable()
