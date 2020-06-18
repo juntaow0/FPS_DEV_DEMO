@@ -11,6 +11,7 @@ TagManager:
   - Scope
   - Ground
   - Concrete
+  - Target
   layers:
   - Default
   - TransparentFX
@@ -47,4 +48,10 @@ TagManager:
   m_SortingLayers:
   - name: Default
     uniqueID: 0
+    locked: 0
+  - name: targets
+    uniqueID: 342254641
+    locked: 0
+  - name: bulletholes
+    uniqueID: 3545630865
     locked: 0

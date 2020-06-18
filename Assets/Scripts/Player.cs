@@ -17,6 +17,8 @@ public class Player : MonoBehaviour, IDamage
     [SerializeField]
     private Camera _weaponCam;
 
+    private int _score = 0;
+
     private int _currentHealth;
     private PlayerInputClass _pi;
     private WeaponController _currentWeapon;
@@ -100,6 +102,7 @@ public class Player : MonoBehaviour, IDamage
         }
         _currentWeapon = weapon.GetComponent<WeaponController>();
         _currentWeapon.assignCamera(_FPSCam,_weaponCam);
+        _currentWeapon.assignOwner(this);
         _currentWeapon.OnSwap();
         hasWeapon = true;
     }
@@ -129,5 +132,11 @@ public class Player : MonoBehaviour, IDamage
     private void die()
     {
         SceneManager.LoadScene("Playground");
+    }
+
+    public void addScore(int amount)
+    {
+        _score += amount;
+        UIManager.instance.updateScore(_score);
     }
 }

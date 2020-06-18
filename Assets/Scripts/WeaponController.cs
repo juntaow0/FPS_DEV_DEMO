@@ -16,6 +16,7 @@ public class WeaponController : MonoBehaviour
     private ScopeIn _scopeFunction;
     private AimDownSight _ADSFunction;
     private WeaponRecoil _weaponRecoil;
+    private Player _player;
 
     private bool isADS = false;
 
@@ -135,8 +136,14 @@ public class WeaponController : MonoBehaviour
                     player.takeDamage(_weaponStats.Damage);
                 }
             }
+            else if (hit.transform.tag == "Target")
+            {
+                int score = hit.transform.GetComponent<TargetBoard>().getScore(hit.point);
+                _player.addScore(score);
+
+            }
             HitMarkerManager.instance.selectHitMarker(hit);
-            ObjectPooler.instance.SpawnFromPool("bulletHole", hit.point, Quaternion.FromToRotation(Vector3.up,hit.normal));
+            ObjectPooler.instance.SpawnFromPool("bulletHole", hit.point+hit.normal*0.001f, Quaternion.FromToRotation(-Vector3.forward,hit.normal));
             if (hit.rigidbody != null)
             {
                 Vector3 dir = _firePoint.forward;
@@ -277,5 +284,13 @@ public class WeaponController : MonoBehaviour
     public bool isEmpty()
     {
         return (_weaponStats.currentAmmo == 0);
+    }
+
+    public void assignOwner(Player player)
+    {
+        if (_player != player || _player==null)
+        {
+            _player = player;
+        }
     }
 }

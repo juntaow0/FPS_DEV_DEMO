@@ -47,4 +47,9 @@ public class UIManager : MonoBehaviour
     {
         _reserveAmmo.SetText(amount.ToString());
     }
+
+    public void updateScore(int amount)
+    {
+        _score.SetText(amount.ToString());
+    }
 }
