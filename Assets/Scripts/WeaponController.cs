@@ -82,6 +82,8 @@ public class WeaponController : MonoBehaviour
                 _weaponStats.reserveAmmo = 0;
             }
         }
+        UIManager.instance.updateCurrentAmmo(_weaponStats.currentAmmo);
+        UIManager.instance.updateReserveAmmo(_weaponStats.reserveAmmo);
     }
     bool magNotFull()
     {
@@ -108,6 +110,7 @@ public class WeaponController : MonoBehaviour
         _muzzleFlash.Play();
         _shell.Play();
         _weaponStats.currentAmmo--;
+        UIManager.instance.updateCurrentAmmo(_weaponStats.currentAmmo);
         _animator.SetTrigger("shoot");
         Vector3 offsetAngle = _weaponRecoil.getAngleOffset();
         Vector3 rayCastDir = Quaternion.AngleAxis(offsetAngle.x, _firePoint.right) * Quaternion.AngleAxis(offsetAngle.y, _firePoint.up) * _firePoint.forward;
@@ -217,6 +220,8 @@ public class WeaponController : MonoBehaviour
         {
             UIManager.instance.setCrosshair(true);
         }
+        UIManager.instance.updateCurrentAmmo(_weaponStats.currentAmmo);
+        UIManager.instance.updateReserveAmmo(_weaponStats.reserveAmmo);
         StartCoroutine(SwapRoutine());
     }
     IEnumerator SwapRoutine()
@@ -241,6 +246,7 @@ public class WeaponController : MonoBehaviour
         {
             _weaponStats.reserveAmmo = _weaponStats.ReserveAmmoCapacity - _weaponStats.MagSize;
         }
+        UIManager.instance.updateReserveAmmo(_weaponStats.reserveAmmo);
     }
     public void assignCamera(Camera FPSCam, Camera weaponCam)
     {

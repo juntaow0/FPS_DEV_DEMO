@@ -56,8 +56,17 @@ public class PlayerMovement : MonoBehaviour
     {
         float x = movementInput.x;
         float z = movementInput.y;
-
         Vector3 dir = new Vector3(x, 0f, z);
+        if (dir.sqrMagnitude == 0)
+        {
+            isMoving = false;
+        }
+        else
+        {
+            isMoving = true;
+        }
+
+
         dir = transform.TransformDirection(dir).normalized;
         _velocity.y = 0;
         
@@ -70,12 +79,10 @@ public class PlayerMovement : MonoBehaviour
             }
             if (dir.sqrMagnitude == 0 && _velocity.sqrMagnitude!=0)
             {
-                isMoving = false;
                 _velocity = Vector3.SmoothDamp(_velocity, Vector3.zero, ref _refVelocityLand, _stopSmoothTime);
             }
             else
             {
-                isMoving = true;
                 Vector3 targetVelocity = dir * _speed;
                 _velocity = Vector3.SmoothDamp(_velocity, targetVelocity, ref _refVelocityLand, _startSmoothTime);
                 prevDir = dir;

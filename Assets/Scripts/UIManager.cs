@@ -1,6 +1,8 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class UIManager : MonoBehaviour
 {
@@ -9,6 +11,13 @@ public class UIManager : MonoBehaviour
     private GameObject _crosshair;
     [SerializeField]
     private GameObject _scope;
+    [SerializeField]
+    private TextMeshProUGUI _score;
+    [SerializeField]
+    private TextMeshProUGUI _reserveAmmo;
+    [SerializeField]
+    private TextMeshProUGUI _currentAmmo;
+
 
     private void Awake()
     {
@@ -27,5 +36,15 @@ public class UIManager : MonoBehaviour
     public void setScope(bool active)
     {
         _scope.SetActive(active);
+    }
+
+    public void updateCurrentAmmo(int amount)
+    {
+        _currentAmmo.SetText(amount + " /");
+    }
+
+    public void updateReserveAmmo(int amount)
+    {
+        _reserveAmmo.SetText(amount.ToString());
     }
 }
