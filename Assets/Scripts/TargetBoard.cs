@@ -21,7 +21,6 @@ public class TargetBoard : MonoBehaviour
         
         Vector3 localHit = transform.InverseTransformPoint(hitPoint);
         float localDistance = Vector3.Distance(localHit, _center.localPosition);
-        Debug.Log(localDistance);
         return calculateScore(localDistance);
     }
 
