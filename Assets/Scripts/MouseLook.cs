@@ -55,4 +55,14 @@ public class MouseLook : MonoBehaviour
     {
         _pi.Player.Look.Disable();
     }
+
+    public float getSensitivity()
+    {
+        return _sensitivity;
+    }
+
+    public void setSensitivity(float value)
+    {
+        _sensitivity = value;
+    }
 }
