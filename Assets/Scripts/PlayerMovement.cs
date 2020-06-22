@@ -92,12 +92,6 @@ public class PlayerMovement : MonoBehaviour
         {
             isMoving = false;
             _jumpVelocity += _gravity * Time.deltaTime;
-
-            if (x != 0)
-            {
-                _velocity = _velocity.magnitude * transform.forward;
-            }
-            
             _velocity -= (_velocity * _airFriction)*Time.deltaTime;
         }
         

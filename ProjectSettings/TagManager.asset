@@ -12,6 +12,8 @@ TagManager:
   - Ground
   - Concrete
   - Target
+  - LaneButton
+  - ClearScore
   layers:
   - Default
   - TransparentFX

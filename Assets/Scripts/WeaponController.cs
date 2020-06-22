@@ -143,7 +143,9 @@ public class WeaponController : MonoBehaviour
 
             }
             HitMarkerManager.instance.selectHitMarker(hit);
-            ObjectPooler.instance.SpawnFromPool("bulletHole", hit.point+hit.normal*0.001f, Quaternion.FromToRotation(-Vector3.forward,hit.normal));
+            GameObject bulletHole = ObjectPooler.instance.SpawnFromPool("bulletHole", hit.point+hit.normal*0.001f, Quaternion.FromToRotation(-Vector3.forward,hit.normal));
+            bulletHole.transform.parent = hit.transform;
+
             if (hit.rigidbody != null)
             {
                 Vector3 dir = _firePoint.forward;
