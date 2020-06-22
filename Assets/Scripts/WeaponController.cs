@@ -17,11 +17,13 @@ public class WeaponController : MonoBehaviour
     private AimDownSight _ADSFunction;
     private WeaponRecoil _weaponRecoil;
     private Player _player;
+    private WeaponAudio _weaponAudio;
 
     private bool isADS = false;
 
     private void Awake()
     {
+        _weaponAudio = GetComponent<WeaponAudio>();
         _weaponStats = GetComponent<WeaponStats>();
         if (_weaponStats == null)
         {
@@ -40,6 +42,7 @@ public class WeaponController : MonoBehaviour
         if (canReload())
         {
             stopSecondaryFunction();
+            _weaponAudio.reloadSound();
             _weaponStats.isReloading = true;
             _animator.SetBool("isReloading", true);
             StartCoroutine(ReloadRoutine());
@@ -104,12 +107,14 @@ public class WeaponController : MonoBehaviour
     }
     bool canFire()
     {
-        return (Time.time >= _weaponStats.nextFireTime) && (_weaponStats.currentAmmo > 0);
+        return (Time.time >= _weaponStats.nextFireTime) && (_weaponStats.currentAmmo > 0) && !PauseMenu.GameIsPaused;
     }
     void FireFunction()
     {
         _muzzleFlash.Play();
         _shell.Play();
+        _weaponAudio.fireSound();
+        StartCoroutine(playShellSound());
         _weaponStats.currentAmmo--;
         UIManager.instance.updateCurrentAmmo(_weaponStats.currentAmmo);
         _animator.SetTrigger("shoot");
@@ -158,6 +163,12 @@ public class WeaponController : MonoBehaviour
         _firePoint.localRotation = Quaternion.Euler(offsetAngle);
         _weaponStats.nextFireTime = Time.time + 60f/_weaponStats.FireRate;
     }
+    IEnumerator playShellSound()
+    {
+        yield return new WaitForSeconds(0.3f);
+        AudioManager.instance.Play("shell");
+    }
+
     public void Fire()
     {
         if (canFire())
@@ -231,6 +242,7 @@ public class WeaponController : MonoBehaviour
         }
         UIManager.instance.updateCurrentAmmo(_weaponStats.currentAmmo);
         UIManager.instance.updateReserveAmmo(_weaponStats.reserveAmmo);
+        _weaponAudio.switchSound();
         StartCoroutine(SwapRoutine());
     }
     IEnumerator SwapRoutine()

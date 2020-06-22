@@ -40,11 +40,13 @@ public class Player : MonoBehaviour, IDamage
                 if (hit.transform.tag == "Weapon")
                 {
                     // add disabled weapon to weapon manager
+                    AudioManager.instance.Play("pickUp");
                    _weaponHolder.pickUpWeapon(hit.transform);
                 }else if (hit.transform.tag == "AmmoBox")
                 {
                     if (_currentWeapon != null)
                     {
+                        AudioManager.instance.Play("pickUp");
                         _currentWeapon.getAmmo();
                     }
                 }else if (hit.transform.tag == "LaneButton")

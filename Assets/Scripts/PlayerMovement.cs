@@ -19,14 +19,12 @@ public class PlayerMovement : MonoBehaviour
 
     private Vector3 _velocity;
     private Vector3 _refVelocityLand;
-    private float _jumpVelocity;
-
+    public float jumpVelocity{ get; private set; }
     public bool isMoving { get; private set; }
+    public bool wasGrounded { get; private set; }
 
     private CharacterController _cc;
     private PlayerInputClass _pi;
-
-    private Vector3 prevDir;
 
     Vector2 movementInput;
     private void Awake()
@@ -38,7 +36,7 @@ public class PlayerMovement : MonoBehaviour
         {
             Debug.LogError("No Character Controller attached!");
         }
-        _jumpVelocity = _gravity;
+        jumpVelocity = _gravity;
         isMoving = false;
     }
 
@@ -49,7 +47,7 @@ public class PlayerMovement : MonoBehaviour
 
     void jump()
     {
-        _jumpVelocity = Mathf.Sqrt(_jumpHeight * -2f * _gravity);
+        jumpVelocity = Mathf.Sqrt(_jumpHeight * -2f * _gravity);
     }
 
     void movement()
@@ -69,10 +67,10 @@ public class PlayerMovement : MonoBehaviour
 
         dir = transform.TransformDirection(dir).normalized;
         _velocity.y = 0;
-        
+
         if (_cc.isGrounded)
         {
-            _jumpVelocity = _gravity;
+            jumpVelocity = _gravity;
             if (_pi.Player.Jump.triggered)
             {
                 jump();
@@ -85,17 +83,17 @@ public class PlayerMovement : MonoBehaviour
             {
                 Vector3 targetVelocity = dir * _speed;
                 _velocity = Vector3.SmoothDamp(_velocity, targetVelocity, ref _refVelocityLand, _startSmoothTime);
-                prevDir = dir;
             }
         }
         else
         {
             isMoving = false;
-            _jumpVelocity += _gravity * Time.deltaTime;
+            jumpVelocity += _gravity * Time.deltaTime;
             _velocity -= (_velocity * _airFriction)*Time.deltaTime;
         }
-        
-        _velocity.y = _jumpVelocity;
+
+        wasGrounded = _cc.isGrounded;
+        _velocity.y = jumpVelocity;
         _cc.Move(_velocity * Time.deltaTime);
     }
 

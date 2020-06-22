@@ -134,7 +134,11 @@ public class WeaponHolder : MonoBehaviour
         adjustLayer(weapon.gameObject);
 
         weapon.GetComponent<Rigidbody>().isKinematic = true;
-        weapon.GetComponent<BoxCollider>().enabled = false;
+        BoxCollider[] colliders = weapon.GetComponents<BoxCollider>();
+        foreach (BoxCollider c in colliders)
+        {
+            c.enabled = false;
+        }
         if (_weaponCount < 1)
         {
             SelectWeapon();
@@ -150,7 +154,11 @@ public class WeaponHolder : MonoBehaviour
         weapon.GetComponent<Animator>().enabled = false;
         weapon.gameObject.SetActive(true);
         Rigidbody rbWeapon = weapon.GetComponent<Rigidbody>();
-        weapon.GetComponent<BoxCollider>().enabled = true;
+        BoxCollider[] colliders = weapon.GetComponents<BoxCollider>();
+        foreach (BoxCollider c in colliders)
+        {
+            c.enabled = true;
+        }
         rbWeapon.isKinematic = false;
         rbWeapon.AddForce(transform.forward * 300f * Time.deltaTime, ForceMode.VelocityChange);
         _weaponCount--;

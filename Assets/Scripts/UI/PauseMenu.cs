@@ -38,6 +38,7 @@ public class PauseMenu : MonoBehaviour
 
     public void Resume()
     {
+        AudioManager.instance.Play("click");
         Cursor.lockState = CursorLockMode.Locked;
         mouseLook.enabled = true;
         pauseMenu.SetActive(false);
@@ -57,19 +58,35 @@ public class PauseMenu : MonoBehaviour
 
     public void titleScreen()
     {
-        pauseMenu.SetActive(false);
-        Time.timeScale = 1f;
-        GameIsPaused = false;
-        SceneManager.LoadScene("StartScreen");
+        AudioManager.instance.Play("click");
+        StartCoroutine(titleRoutine());
+        
     }
 
     public void Quit()
     {
+        StartCoroutine(quitRoutine());
+    }
+
+    IEnumerator titleRoutine()
+    {
+        yield return new WaitForSecondsRealtime(0.3f);
+        Time.timeScale = 1f;
+        GameIsPaused = false;
+        SceneManager.LoadSceneAsync("StartScreen");
+    }
+
+    IEnumerator quitRoutine()
+    {
+        AudioManager.instance.Play("click");
+        yield return new WaitForSecondsRealtime(0.1f);
+        yield return new WaitForSecondsRealtime(0.5f);
         Application.Quit();
     }
 
     public void Apply()
     {
+        AudioManager.instance.Play("apply");
         float sensitivity = mouseLook.getSensitivity();
         try {
             sensitivity = float.Parse(inputField.GetComponent<Text>().text);
