@@ -8,6 +8,7 @@ public class StartScreen : MonoBehaviour
     public AudioClip click;
     public AudioClip quitExtra;
     public AudioClip startExtra;
+    public GameObject loading;
     public void Quit()
     {
         StartCoroutine(quitRoutine());
@@ -28,6 +29,7 @@ public class StartScreen : MonoBehaviour
 
     IEnumerator startRoutine()
     {
+        loading.SetActive(true);
         AudioSource.PlayClipAtPoint(click, Vector3.zero);
         yield return new WaitForSeconds(0.1f);
         AudioSource.PlayClipAtPoint(startExtra, Vector3.zero);
