@@ -259,14 +259,7 @@ public class WeaponController : MonoBehaviour
     }
     public void getAmmo()
     {
-        if (!hasAmmo())
-        {
-            _weaponStats.reserveAmmo = _weaponStats.ReserveAmmoCapacity;
-        }
-        else
-        {
-            _weaponStats.reserveAmmo = _weaponStats.ReserveAmmoCapacity - _weaponStats.MagSize;
-        }
+        _weaponStats.reserveAmmo = _weaponStats.ReserveAmmoCapacity;
         UIManager.instance.updateReserveAmmo(_weaponStats.reserveAmmo);
     }
     public void assignCamera(Camera FPSCam, Camera weaponCam)

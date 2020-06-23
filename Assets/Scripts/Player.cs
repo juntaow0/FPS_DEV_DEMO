@@ -9,7 +9,7 @@ public class Player : MonoBehaviour, IDamage
     [SerializeField]
     private int _maxHealth = 100;
     [SerializeField]
-    private float _interactionDistance = 10f;
+    private float _interactionDistance = 4f;
     [SerializeField]
     private WeaponHolder _weaponHolder;
     [SerializeField]
@@ -54,8 +54,13 @@ public class Player : MonoBehaviour, IDamage
                     hit.transform.GetComponent<LaneControll>().useButton();
                 }else if (hit.transform.tag == "ClearScore")
                 {
-                    _score = 0;
-                    UIManager.instance.updateScore(_score);
+                    hit.transform.GetComponent<ClearScore>().useButton();
+                }else if (hit.transform.tag == "FireAlarm")
+                {
+                    hit.transform.GetComponent<FireAlarm>().press();
+                }else if (hit.transform.tag == "Radio")
+                {
+                    hit.transform.GetComponent<Radio>().useRadio();
                 }
             }
         }
@@ -146,6 +151,12 @@ public class Player : MonoBehaviour, IDamage
     public void addScore(int amount)
     {
         _score += amount;
+        UIManager.instance.updateScore(_score);
+    }
+
+    public void clearScore()
+    {
+        _score = 0;
         UIManager.instance.updateScore(_score);
     }
 }

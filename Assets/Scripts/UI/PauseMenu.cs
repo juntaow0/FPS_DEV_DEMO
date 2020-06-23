@@ -70,7 +70,7 @@ public class PauseMenu : MonoBehaviour
 
     IEnumerator titleRoutine()
     {
-        yield return new WaitForSecondsRealtime(0.3f);
+        yield return new WaitForSecondsRealtime(0.2f);
         Time.timeScale = 1f;
         GameIsPaused = false;
         SceneManager.LoadSceneAsync("StartScreen");
@@ -80,7 +80,8 @@ public class PauseMenu : MonoBehaviour
     {
         AudioManager.instance.Play("click");
         yield return new WaitForSecondsRealtime(0.1f);
-        yield return new WaitForSecondsRealtime(0.5f);
+        AudioManager.instance.Play("wdnmlgb");
+        yield return new WaitForSecondsRealtime(2.1f);
         Application.Quit();
     }
 

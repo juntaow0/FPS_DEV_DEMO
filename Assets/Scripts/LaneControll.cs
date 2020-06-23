@@ -23,6 +23,7 @@ public class LaneControll : MonoBehaviour
     {
         if (!isRunning)
         {
+            AudioManager.instance.Play("buttons");
             if (currentTarget < 4)
             {
                 disableTarget(_targets[currentTarget]);

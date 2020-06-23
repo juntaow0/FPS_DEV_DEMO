@@ -30,6 +30,7 @@ public class AudioManager : MonoBehaviour
             s.source.loop = s.loop;
             s.source.playOnAwake = s.playOnAwake;
         }
+        Play("ambience");
     }
 
     public void Play(string name)

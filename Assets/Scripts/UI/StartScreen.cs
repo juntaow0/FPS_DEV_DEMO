@@ -6,6 +6,8 @@ using UnityEngine.SceneManagement;
 public class StartScreen : MonoBehaviour
 {
     public AudioClip click;
+    public AudioClip quitExtra;
+    public AudioClip startExtra;
     public void Quit()
     {
         StartCoroutine(quitRoutine());
@@ -15,7 +17,8 @@ public class StartScreen : MonoBehaviour
     {
         AudioSource.PlayClipAtPoint(click, Vector3.zero);
         yield return new WaitForSeconds(0.1f);
-        yield return new WaitForSeconds(0.5f);
+        AudioSource.PlayClipAtPoint(quitExtra, Vector3.zero);
+        yield return new WaitForSeconds(2.1f);
         Application.Quit();
     }
     public void StartGame()
@@ -27,7 +30,8 @@ public class StartScreen : MonoBehaviour
     {
         AudioSource.PlayClipAtPoint(click, Vector3.zero);
         yield return new WaitForSeconds(0.1f);
-        yield return new WaitForSeconds(0.5f);
+        AudioSource.PlayClipAtPoint(startExtra, Vector3.zero);
+        yield return new WaitForSeconds(2.8f);
         SceneManager.LoadSceneAsync("Playground");
     }
 }
