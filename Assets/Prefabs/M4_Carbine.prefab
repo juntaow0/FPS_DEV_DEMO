@@ -172,9 +172,9 @@ MonoBehaviour:
   _isAutomatic: 1
   _isADS: 1
   recoilSpeed: 0.1
-  recoilDecay: 0.9
-  recoilScale: 8
-  bulletSpread: 5
+  recoilDecay: 0.7
+  recoilScale: 12
+  bulletSpread: 3
   isReloading: 0
   isSwapping: 0
   currentAmmo: 0
